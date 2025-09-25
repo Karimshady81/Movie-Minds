@@ -1,0 +1,17 @@
+﻿@using MovieMinds.ViewModels
+@model UserProfileViewModel
+
+<h1>@Model.Message</h1>
+<div>
+    <h2>User Details</h2>
+    @foreach(var user in Model.Users)
+    {
+        <div>
+            <p><strong>Username:</strong> @user.UserName</p>
+            <p><strong>Email:</strong> @user.Email</p>
+            <p><strong>First Name:</strong> @user.FirstName</p>
+            <p><strong>Last Name:</strong> @user.LastName</p>
+            <p><strong>Created At:</strong> @user.CreatedAt</p>
+        </div>
+    })
+</div>
