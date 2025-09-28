@@ -33,7 +33,9 @@ namespace MovieMinds.Models.Entites
         public string? Location { get; set; }
 
         //Navigation properties - Collection of related data
-        //public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
-        //public virtual ICollection<UserList> Lists { get; set; } = new List<UserList>();
+        public ICollection<Review> Reviews { get; set; } = new List<Review>();
+        public ICollection<WatchList> Watchlists { get; set; }
+        public ICollection<UserFollowing> Followers { get; set; }
+        public ICollection<UserFollowing> Following { get; set; }
     }
 }
