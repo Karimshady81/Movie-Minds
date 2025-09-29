@@ -9,6 +9,7 @@ body {
     font-family: "Prata", serif;
 }
 
+/*Backdrop index styles*/
 .home-Img {
     display: flex;
     align-items: flex-end;
@@ -57,5 +58,58 @@ body {
     font-size: 2.5rem;
     line-height: 1.5;
     font-weight: bold;
-    text-shadow: 2px 2px 4px rgb(0, 0, 0); /* Adds subtle text shadow */
+    text-shadow: 2px 2px 4px rgb(0, 0, 0); 
+}
+
+/*--------------------------*/
+/* Home Container style*/
+
+.home-Container {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    padding: 20px;
+    gap: 20px;
+}
+
+.container-Title {
+    color: hsl(208, 11%, 46%);
+    font-family: "Prata", serif;
+    font-weight: 600;
+}
+
+.home-Grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+    gap: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+.movie-Banner {
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: hsl(209, 11%, 20%);
+    box-shadow: -4px 3px 7px rgb(255 255 255 / 48%);
+    cursor: pointer;
+}
+
+.movie-Details {
+    text-decoration: none;
+}
+
+.movie-Card-Img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgb(0,0,0,0.2);
+}
+
+.movie-Card-Title {
+    font-size: 1.2rem;
+    font-family: "Prata", serif;
+    font-weight: 400;
+    color: white;
 }

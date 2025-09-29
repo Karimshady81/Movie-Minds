@@ -1,6 +1,26 @@
-﻿<div class="home-Img">
+﻿@model IEnumerable<MovieMinds.Models.Entites.Movie>
+
+<div class="home-Img">
     <div class="home-Text">
-        <h1>Welcome to MovieMinds! Dive into your movie diary, rate your favorites, 
-            and capture your cinematic journey just for you</h1>     
+        <h1>
+            Welcome to MovieMinds! Dive into your movie diary, rate your favorites, 
+            and capture your cinematic journey just for you
+        </h1>     
+    </div>
+</div>
+<div class="home-Container">
+    <h2 class="container-Title">Now Playing</h2>
+    <div class="home-Grid">  
+        @foreach(var movie in Model)
+        {
+            <div class="movie-Banner">
+                <a class="movie-Details" href="movie/details/@movie.Id">
+                    <div>
+                        <img class="movie-Card-Img" src="https://image.tmdb.org/t/p/w500/@movie.PosterPath" alt="@movie.Title"/>
+                        <p class="movie-Card-Title">@movie.Title</p>
+                    </div>
+                </a>
+            </div>
+        }
     </div>
 </div>

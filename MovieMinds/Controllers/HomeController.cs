@@ -1,12 +1,21 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieMinds.Repositories.Interfaces;
+using System.Collections;
 
 namespace MovieMinds.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly IMovieService _movies;
+
+        public HomeController(IMovieService movies)
         {
-            return View();
+            _movies = movies;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            return View(await _movies.GetHomeMoviesAsync());
         }
     }
 }

@@ -15,7 +15,7 @@ namespace MovieMinds.Models.SeedData
                 context.AddRange
                 (
                     new User { UserName = "John smith", Email = "JohnSmith@email.com", Password = "password123", FirstName = "John", LastName = "Smith" },
-                    new User { UserName = "Jane Doe", Email = "JaneDoe@email.com", Password = "password456", FirstName = "Jane", LastName = "Doe"}
+                    new User { UserName = "Jane Doe", Email = "JaneDoe@email.com", Password = "password456", FirstName = "Jane", LastName = "Doe" }
                 );
             }
 
