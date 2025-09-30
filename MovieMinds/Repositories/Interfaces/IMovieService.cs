@@ -5,6 +5,6 @@ namespace MovieMinds.Repositories.Interfaces
     public interface IMovieService
     {
         Task<IReadOnlyList<Movie>> GetHomeMoviesAsync();
-        Task<Movie> GetDetailsAsync(int id);
+        Task<Movie> GetMovieDetailsAsync(int id);
     }
 }

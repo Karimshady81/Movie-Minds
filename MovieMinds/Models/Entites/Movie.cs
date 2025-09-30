@@ -7,8 +7,8 @@ namespace MovieMinds.Models.Entites
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        [JsonPropertyName("imdb_id")]
-        public int TmdbId { get; set; }
+        //[JsonPropertyName("imdb_id")]
+        //public int TmdbId { get; set; }
 
         [JsonPropertyName("title")]
         public string Title { get; set; } = default!;
@@ -32,7 +32,7 @@ namespace MovieMinds.Models.Entites
         public int RunTime { get; set; }
 
         [JsonPropertyName("status")]
-        public string? Status { get; set; } //Released, In Production, etc?
+        public string? Status { get; set; }
 
         [JsonPropertyName("revenue")]
         public decimal Revenue { get; set; }
@@ -46,7 +46,7 @@ namespace MovieMinds.Models.Entites
 
         //Navigation properties
         //public ICollection<Review> Reviews { get; set; }
-        public ICollection<MovieGenre>? MovieGenres { get; set; }
+        //public ICollection<MovieGenre>? MovieGenres { get; set; }
         //public ICollection<WatchList> WatchLists { get; set; }
     }
 }

@@ -22,6 +22,7 @@ namespace MovieMinds.Repositories
             var movieWrapper = await response.Content.ReadFromJsonAsync<MovieRespone>();
             return (movieWrapper?.Results ?? new List<Movie>()).AsReadOnly();
         }
+
         public async Task<IReadOnlyList<Movie>> GetNowPlayingAsync(int page = 1)
         {
             var response = await _httpClient.GetAsync($"movie/now_playing?page={page}");
@@ -32,7 +33,7 @@ namespace MovieMinds.Repositories
             return (movieWrapper?.Results ?? new List<Movie>()).AsReadOnly();
         }
 
-        public async Task<Movie> GetByIdAsync(int id)
+        public async Task<Movie> GetMovieByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"movie/{id}?language=en-US");
             response.EnsureSuccessStatusCode();

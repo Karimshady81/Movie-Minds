@@ -14,7 +14,7 @@
         @foreach(var movie in Model)
         {
             <div class="movie-Banner">
-                <a class="movie-Details" href="movie/details/@movie.Id">
+                <a class="movie-Details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
                     <div>
                         <img class="movie-Card-Img" src="https://image.tmdb.org/t/p/w500/@movie.PosterPath" alt="@movie.Title"/>
                         <p class="movie-Card-Title">@movie.Title</p>

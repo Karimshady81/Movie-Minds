@@ -6,6 +6,6 @@ namespace MovieMinds.Repositories.Interfaces
     {
         Task<IReadOnlyList<Movie>> GetDiscoverAsync(int page = 1);
         Task<IReadOnlyList<Movie>> GetNowPlayingAsync(int page = 1);
-        Task<Movie> GetByIdAsync (int id);
+        Task<Movie> GetMovieByIdAsync (int id);
     }
 }

@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using MovieMinds.Data;
-using MovieMinds.Models.SeedData;
 using MovieMinds.Repositories;
 using MovieMinds.Repositories.Interfaces;
 using System.Net.Http.Headers;
