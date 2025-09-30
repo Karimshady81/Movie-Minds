@@ -18,7 +18,8 @@ builder.Services.AddDbContext<MovieMindsDbContext>(options =>
 });
 
 var tmdbBase = builder.Configuration["Tmdb:BaseUrl"];
-var tmdbToken = builder.Configuration["Tmdb:Token"] ?? throw new InvalidOperationException("TMDB token missing. Use dotnet user-secrets to set it.");
+var tmdbToken = builder.Configuration["Tmdb:Token"] ?? 
+                          throw new InvalidOperationException("TMDB token missing. Use dotnet user-secrets to set it.");
 
 builder.Services.AddHttpClient<IMovieApiClient, TmdbMovieApiClient>(client =>
 {

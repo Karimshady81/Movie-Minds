@@ -11,26 +11,48 @@ body {
 
 /*Backdrop index styles*/
 .home-Img {
-    display: flex;
-    align-items: flex-end;
-    width: 100%;
-    height: 80vh;
-    background-image: url('/Images/HomeBanner.jpg');
-    background-size: cover;
-    background-position: center;
     position: relative;
-    mask-image: radial-gradient(circle, white 50%, transparent 80%);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
 }
 
-.home-Img::before {
-    content: "";
+.home-Img img{
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.5), transparent, rgba(0, 0, 0, 0.5));
-    z-index: 1; /* Ensures it's above the image */
+    object-fit: cover;
+    object-position: center;
+    z-index: 1;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 100%), linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 100%), linear-gradient(to right, transparent 0%, black 20%, black 80%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+}
+
+home-Img::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, transparent 20%, rgba(20,24,28,0.5) 80%), linear-gradient(to bottom, rgba(20,24,28,0.1), rgba(20,24,28,0.85));
+    z-index: 2;
+    pointer-events: none;
+}
+
+.home-Img::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(20,24,28,0.4), rgba(20,24,28,0.9));
 }
 
 .home-Text {
@@ -39,11 +61,11 @@ body {
     color: white;
     margin: 0 auto;
     max-width: 600px;
-    margin-bottom: 20px;
+    margin-top: 250px;
     border-radius: 10px;
     padding: 20px;
     flex-direction: column;
-    align-items: center;
+    z-index: 1;
 }
 
 .home-Text p {

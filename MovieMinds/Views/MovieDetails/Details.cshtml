@@ -1,10 +1,110 @@
 ﻿@model MovieMinds.Models.Entites.Movie
 
-<div class="movie-Backdrop">
-    <img src="https://image.tmdb.org/t/p/w500/@Model.BackdropPath" alt="@Model.Title"/>
+
+
+@* back-drop section *@
+<div class="hero">
+    <img src="https://image.tmdb.org/t/p/original/@Model.BackdropPath" alt="@Model.Title Backdrop image"/>
 </div>
-<div class="movie-Details-container">
-   <div class="movie-Poster">
-       <img src="https://image.tmdb.org/t/p/w500/@Model.PosterPath" alt="@Model.Title"/>
-   </div>
+
+@* film-details section *@
+<div class="container">
+    <div class="film-content">
+        <aside>
+            <div class="poster-card">
+                <div class="poster">
+                    <img src="https://image.tmdb.org/t/p/original/@Model.PosterPath" alt="@Model.Title Poster image"/>
+                </div>
+                @* social implementaion will do later *@
+                <div class="social-movie-stats">
+                    <div class="stat">
+                        <span>👁</span>
+                        <span></span>
+                    </div>
+                    <div class="stat">
+                        <span>❤️</span>
+                        <span></span>
+                    </div>
+                    <div class="stat">
+                        <span>⭐</span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="watch-section">
+                <button class="watch-btn">▶ Trailer</button>
+            </div>
+        </aside>
+
+        <main class="film-info">
+            <h1 class="film-title">@Model.Title</h1>
+            <div class="film-meta">
+                <span>@Model.ReleaseDate</span>
+                <span>Directed by Paul Thomas Anderson</span>
+            </div>
+                
+            <div class="tagline">Some search for battle, others are born into it.</div>
+                
+            <p class="synopsis">
+                When their evil nemesis resurfaces after 16 years, a band of ex-revolutionaries 
+                reunite to rescue the daughter of one of their own. An epic tale of loyalty, 
+                redemption, and the battles we fight throughout our lives.
+            </p>
+
+            <div class="action-buttons">
+                <button class="action-btn">
+                    <span>👁</span>
+                    <span>Watch</span>
+                </button>
+                <button class="action-btn">
+                    <span>❤️</span>
+                    <span>Like</span>
+                </button>
+                <button class="action-btn">
+                    <span>📋</span>
+                    <span>Watchlist</span>
+                </button>
+            </div>
+
+            <div class="tabs">
+                <div class="tab active">Cast</div>
+                <div class="tab">Crew</div>
+                <div class="tab">Details</div>
+                <div class="tab">Genres</div>
+                <div class="tab">Releases</div>
+            </div>
+
+            <div class="cast-grid">
+                <div class="cast-member">
+                    <div class="cast-name">Leonardo DiCaprio</div>
+                </div>
+                <div class="cast-member">
+                    <div class="cast-name">Sean Penn</div>
+                </div>
+                <div class="cast-member">
+                    <div class="cast-name">Chase Infiniti</div>
+                </div>
+                <div class="cast-member">
+                    <div class="cast-name">Benicio del Toro</div>
+                </div>
+                <div class="cast-member">
+                    <div class="cast-name">Regina Hall</div>
+                </div>
+                <div class="cast-member">
+                    <div class="cast-name">Tayana Taylor</div>
+                </div>
+            </div>
+
+            <div class="ratings-section">
+                <div class="section-title">Ratings</div>
+                <div class="star-rating">
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                    <span class="star">☆</span>
+                </div>
+            </div>
+        </main>
+    </div>
 </div>

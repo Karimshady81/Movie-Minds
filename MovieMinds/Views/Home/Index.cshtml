@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<MovieMinds.Models.Entites.Movie>
 
 <div class="home-Img">
+    <img src="\Images\HomeBanner.jpg"/>
     <div class="home-Text">
         <h1>
             Welcome to MovieMinds! Dive into your movie diary, rate your favorites, 
@@ -16,7 +17,7 @@
             <div class="movie-Banner">
                 <a class="movie-Details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
                     <div>
-                        <img class="movie-Card-Img" src="https://image.tmdb.org/t/p/w500/@movie.PosterPath" alt="@movie.Title"/>
+                        <img class="movie-Card-Img" src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title"/>
                         <p class="movie-Card-Title">@movie.Title</p>
                     </div>
                 </a>
