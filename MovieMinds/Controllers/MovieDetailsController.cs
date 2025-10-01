@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MovieMinds.Repositories.Interfaces;
+using MovieMinds.ViewModels;
 
 namespace MovieMinds.Controllers
 {
@@ -16,8 +17,17 @@ namespace MovieMinds.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var movie = await _movies.GetMovieDetailsAsync(id);
+            var cast = await _movies.GetMovieCastAsync(id);
+            var crew = await _movies.GetMovieCrewAsync(id);
 
-            return View(movie);
+            var viewModel = new MovieDetailsViewModel
+            {
+                Movie = movie,
+                Crew = crew,
+                Cast = cast
+            };
+
+            return View(viewModel);
         }
     }
 }

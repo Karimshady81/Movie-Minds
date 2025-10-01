@@ -12,15 +12,25 @@ namespace MovieMinds.Repositories
             _tmdb = movieApiClient;
         }
 
-
         public Task<IReadOnlyList<Movie>> GetHomeMoviesAsync()
         {
             return _tmdb.GetNowPlayingAsync();
         }
 
+
         public Task<Movie> GetMovieDetailsAsync(int id)
         {
             return _tmdb.GetMovieByIdAsync(id);
         }
+        public Task<IReadOnlyList<CrewMember>> GetMovieCrewAsync(int id)
+        {
+            return _tmdb.GetMovieCrewAsync(id);
+        }
+
+        public Task<IReadOnlyList<CastMember>> GetMovieCastAsync(int id)
+        {
+            return _tmdb.GetMovieCastAsync(id);
+        }
+
     }
 }

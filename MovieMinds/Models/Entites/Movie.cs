@@ -7,9 +7,6 @@ namespace MovieMinds.Models.Entites
         [JsonPropertyName("id")]
         public int Id { get; set; }
 
-        //[JsonPropertyName("imdb_id")]
-        //public int TmdbId { get; set; }
-
         [JsonPropertyName("title")]
         public string Title { get; set; } = default!;
 
@@ -32,7 +29,10 @@ namespace MovieMinds.Models.Entites
         public int RunTime { get; set; }
 
         [JsonPropertyName("status")]
-        public string? Status { get; set; }
+        public string Status { get; set; } = default!;
+
+        [JsonPropertyName("tagline")]
+        public string TagLine { get; set; } = default!;
 
         [JsonPropertyName("revenue")]
         public decimal Revenue { get; set; }

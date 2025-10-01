@@ -7,5 +7,7 @@ namespace MovieMinds.Repositories.Interfaces
         Task<IReadOnlyList<Movie>> GetDiscoverAsync(int page = 1);
         Task<IReadOnlyList<Movie>> GetNowPlayingAsync(int page = 1);
         Task<Movie> GetMovieByIdAsync (int id);
+        Task<IReadOnlyList<CastMember>> GetMovieCastAsync(int id);
+        Task<IReadOnlyList<CrewMember>> GetMovieCrewAsync(int id);
     }
 }

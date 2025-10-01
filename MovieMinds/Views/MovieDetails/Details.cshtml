@@ -1,10 +1,8 @@
-﻿@model MovieMinds.Models.Entites.Movie
-
-
+﻿@model MovieDetailsViewModel 
 
 @* back-drop section *@
 <div class="hero">
-    <img src="https://image.tmdb.org/t/p/original/@Model.BackdropPath" alt="@Model.Title Backdrop image"/>
+    <img src="https://image.tmdb.org/t/p/original/@Model.Movie.BackdropPath" alt="@Model.Movie.Title Backdrop image"/>
 </div>
 
 @* film-details section *@
@@ -13,7 +11,7 @@
         <aside>
             <div class="poster-card">
                 <div class="poster">
-                    <img src="https://image.tmdb.org/t/p/original/@Model.PosterPath" alt="@Model.Title Poster image"/>
+                    <img src="https://image.tmdb.org/t/p/original/@Model.Movie.PosterPath" alt="@Model.Movie.Title Poster image"/>
                 </div>
                 @* social implementaion will do later *@
                 <div class="social-movie-stats">
@@ -37,18 +35,17 @@
         </aside>
 
         <main class="film-info">
-            <h1 class="film-title">@Model.Title</h1>
+            <h1 class="film-title">@Model.Movie.Title</h1>
             <div class="film-meta">
-                <span>@Model.ReleaseDate</span>
-                <span>Directed by Paul Thomas Anderson</span>
+                <span>@Model.Movie.ReleaseDate.Year</span>
+                <span>@Model.Movie.RunTime mins</span>
+                <span>Directed by @Model.Director?.Name</span>
             </div>
                 
-            <div class="tagline">Some search for battle, others are born into it.</div>
+            <div class="tagline">@Model.Movie.TagLine</div>
                 
             <p class="synopsis">
-                When their evil nemesis resurfaces after 16 years, a band of ex-revolutionaries 
-                reunite to rescue the daughter of one of their own. An epic tale of loyalty, 
-                redemption, and the battles we fight throughout our lives.
+                @Model.Movie.Overview
             </p>
 
             <div class="action-buttons">
@@ -75,24 +72,14 @@
             </div>
 
             <div class="cast-grid">
-                <div class="cast-member">
-                    <div class="cast-name">Leonardo DiCaprio</div>
-                </div>
-                <div class="cast-member">
-                    <div class="cast-name">Sean Penn</div>
-                </div>
-                <div class="cast-member">
-                    <div class="cast-name">Chase Infiniti</div>
-                </div>
-                <div class="cast-member">
-                    <div class="cast-name">Benicio del Toro</div>
-                </div>
-                <div class="cast-member">
-                    <div class="cast-name">Regina Hall</div>
-                </div>
-                <div class="cast-member">
-                    <div class="cast-name">Tayana Taylor</div>
-                </div>
+                @foreach (var cast in (Model.Cast ?? Array.Empty<CastMember>())
+                                                           .OrderBy(c => c.Order)
+                                                           .Take(10))
+                {
+                    <div class="cast-member">
+                        <div class="cast-name">@cast.Name</div>
+                    </div>
+                }
             </div>
 
             <div class="ratings-section">
