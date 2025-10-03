@@ -130,7 +130,7 @@ body {
 }
 
 .watch-btn {
-    background: #00c030;
+    background: hsl(36, 80%, 45%);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -142,7 +142,7 @@ body {
 }
 
 .watch-btn:hover {
-    background: #00e054;
+    background: hsl(36, 80%, 50%);
 }
 
 /********************************/
@@ -210,7 +210,7 @@ body {
 
 .action-btn:hover {
     background: #3d4654;
-    border-color: #00e054;
+    border-color: hsl(36, 80%, 58%);
     color: #fff;
 }
 
@@ -237,8 +237,8 @@ body {
 }
 
 .tab.active {
-    color: #00e054;
-    border-bottom-color: #00e054;
+    color: hsl(36, 80%, 58%);
+    border-bottom-color: hsl(36, 80%, 58%);
 }
 
 /********************************/
@@ -303,5 +303,5 @@ body {
 
 .star:hover,
 .star.active {
-    color: #00e054;
+    color: hsl(36, 80%, 58%);
 }

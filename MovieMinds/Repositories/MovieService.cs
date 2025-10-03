@@ -17,11 +17,11 @@ namespace MovieMinds.Repositories
             return _tmdb.GetNowPlayingAsync();
         }
 
-
         public Task<Movie> GetMovieDetailsAsync(int id)
         {
             return _tmdb.GetMovieByIdAsync(id);
         }
+
         public Task<IReadOnlyList<CrewMember>> GetMovieCrewAsync(int id)
         {
             return _tmdb.GetMovieCrewAsync(id);

@@ -37,15 +37,15 @@
         <main class="film-info">
             <h1 class="film-title">@Model.Movie.Title</h1>
             <div class="film-meta">
-                <span>@Model.Movie.ReleaseDate.Year</span>
-                <span>@Model.Movie.RunTime mins</span>
-                <span>Directed by @Model.Director?.Name</span>
+                <span>@Model.DisplayYear</span>
+                <span>@Model.DisplayRunTime</span>
+                <span>Directed by @Model.DisplayDirector</span>
             </div>
                 
-            <div class="tagline">@Model.Movie.TagLine</div>
+            <div class="tagline">@Model.DisplayTagLine</div>
                 
             <p class="synopsis">
-                @Model.Movie.Overview
+                @Model.DisplayOverview
             </p>
 
             <div class="action-buttons">
