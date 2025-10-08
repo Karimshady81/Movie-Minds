@@ -14,7 +14,7 @@ namespace MovieMinds.Repositories
             _movieMindsDbContext = movieMindsDbContext;
         }
 
-        public async Task<User?> GetByIdAsync(Guid id)
+        public async Task<User?> GetByIdAsync(int id)
         {
             //you should inculde the other properties when they are available
             return await _movieMindsDbContext.Users
@@ -40,7 +40,6 @@ namespace MovieMinds.Repositories
 
         public async Task<User?> CreateUserAsync(User user)
         {
-            user.CreatedAt = DateTime.UtcNow;
             _movieMindsDbContext.Users.Add(user);
             await _movieMindsDbContext.SaveChangesAsync();
             return user;
@@ -53,7 +52,7 @@ namespace MovieMinds.Repositories
             return user;
         }
 
-        public async Task<bool> DeleteUserAsync(Guid id)
+        public async Task<bool> DeleteUserAsync(int id)
         {
             var user = await _movieMindsDbContext.Users.FindAsync(id);
             if (user == null)
@@ -66,18 +65,18 @@ namespace MovieMinds.Repositories
             return true;
         }
 
-        public async Task<bool> ExistsAsync(Guid id)
-        {
-            return await _movieMindsDbContext.Users.AnyAsync(u => u.Id == id);
-        }
-        public async Task<bool> IsUsernameAvailableAsync(string username)
-        {
-            return !await _movieMindsDbContext.Users.AnyAsync(u => u.UserName == username);
-        }
-        
-        public async Task<bool> IsEmailAvailableAsync(string email)
-        {
-            return !await _movieMindsDbContext.Users.AnyAsync(u => u.Email == email);
-        }
+        //public async Task<bool> ExistsAsync(int id)
+        //{
+        //    return await _movieMindsDbContext.Users.AnyAsync(u => u.Id == id);
+        //}
+        //public async Task<bool> IsUsernameAvailableAsync(string username)
+        //{
+        //    return !await _movieMindsDbContext.Users.AnyAsync(u => u.UserName == username);
+        //}
+
+        //public async Task<bool> IsEmailAvailableAsync(string email)
+        //{
+        //    return !await _movieMindsDbContext.Users.AnyAsync(u => u.Email == email);
+        //}
     }
 }

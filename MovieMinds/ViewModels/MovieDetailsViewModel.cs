@@ -15,6 +15,7 @@ namespace MovieMinds.ViewModels
         //public CastMember? ActorOrder(int position) => Cast?.Skip(Math.Max(0, position - 1)).FirstOrDefault();
         //public string Rating => Movie.TmbdRating.ToString("0.0");
 
+
         //Fallbacks
         public string DisplayYear => DateTime.TryParse(Movie.ReleaseDate.ToString(), out var d) ? d.Year.ToString() : "-";
 

@@ -6,6 +6,7 @@ public partial class WatchButton : ComponentBase
 {
     [Parameter] public int MovieId { get; set; }
     [Parameter] public bool Initial { get; set; }   // from MVC model
+    
     private bool isWatched;
 
     protected override void OnInitialized() => isWatched = Initial;

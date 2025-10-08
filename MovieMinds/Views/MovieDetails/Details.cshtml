@@ -69,7 +69,12 @@
             </div>
 
             <div class="action-buttons">
-                <component type="typeof(WatchButton)" render-mode="ServerPrerendered" />
+                <component 
+                    type = "typeof(WatchButton)" 
+                    render-mode = "ServerPrerendered"
+                    param-MovieId = "@Model.Movie.Id"
+                    param-Initial = "false"
+                />
                 <button class="action-btn">
                     <span>❤️</span>
                     <span>Like</span>

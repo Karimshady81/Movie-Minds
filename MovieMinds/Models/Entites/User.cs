@@ -11,6 +11,7 @@ namespace MovieMinds.Models.Entites
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public string? DisplayName { get; set; }
+
         public ICollection<UserMovie> UserMovie { get; set; } = new List<UserMovie>();
 
 

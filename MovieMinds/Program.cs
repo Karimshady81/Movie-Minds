@@ -10,7 +10,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddServerSideBlazor();
+builder.Services.AddServerSideBlazor().AddCircuitOptions(o => { o.DetailedErrors = true; });
 
 builder.Services.AddDbContext<MovieMindsDbContext>(options =>
 {
