@@ -10,6 +10,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddServerSideBlazor();
 
 builder.Services.AddDbContext<MovieMindsDbContext>(options =>
 {
@@ -32,6 +33,7 @@ builder.Services.AddHttpClient<IMovieApiClient, TmdbMovieApiClient>(client =>
 var app = builder.Build();
 
 app.UseStaticFiles();
+app.UseRouting();
 
 if (app.Environment.IsDevelopment())
 {
@@ -39,5 +41,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.MapDefaultControllerRoute();
+
+//SignalR endpoints for Blazor server
+app.MapBlazorHub();
 
 app.Run();

@@ -13,33 +13,30 @@ namespace MovieMinds.Repositories
             _httpClient = httpClient;
         }
 
-        public async Task<IReadOnlyList<Movie>> GetDiscoverAsync(int page = 1)
+        public async Task<IReadOnlyList<TmdbMovieDto>> GetDiscoverAsync(int page = 1)
         {
             var response = await _httpClient.GetAsync($"discover/movie?page={page}");
-            if(!response.IsSuccessStatusCode)
-                throw new HttpRequestException($"TMDB {(int)response.StatusCode}: {await response.Content.ReadAsStringAsync()}");
+            response.EnsureSuccessStatusCode();
 
-            var movieWrapper = await response.Content.ReadFromJsonAsync<MovieRespone>();
-            return (movieWrapper?.Results ?? new List<Movie>()).AsReadOnly();
+            var dto = await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
+            return (dto?.Results ?? new()).AsReadOnly();
         }
 
-        public async Task<IReadOnlyList<Movie>> GetNowPlayingAsync(int page = 1)
+        public async Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync(int page = 1)
         {
             var response = await _httpClient.GetAsync($"movie/now_playing?page={page}");
-            if(!response.IsSuccessStatusCode)
-                throw new HttpRequestException($"TMDB {(int)response.StatusCode}: {await response.Content.ReadAsStringAsync()}");
+            response.EnsureSuccessStatusCode();
 
-            var movieWrapper = await response.Content.ReadFromJsonAsync<MovieRespone>();
-            return (movieWrapper?.Results ?? new List<Movie>()).AsReadOnly();
+            var dto = await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
+            return (dto?.Results ?? new()).AsReadOnly(); 
         }
 
-        public async Task<Movie> GetMovieByIdAsync(int id)
+        public async Task<TmdbMovieDto?> GetMovieByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"movie/{id}?language=en-US");
             response.EnsureSuccessStatusCode();
 
-            var movieReponse = await response.Content.ReadFromJsonAsync<Movie>();
-            return movieReponse!;
+            return await response.Content.ReadFromJsonAsync<TmdbMovieDto>();
         }
 
         public async Task<IReadOnlyList<CastMember>> GetMovieCastAsync(int id)
