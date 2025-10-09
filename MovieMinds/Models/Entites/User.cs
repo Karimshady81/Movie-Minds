@@ -3,24 +3,22 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieMinds.Models.Entites
 {
-    public class User 
+    public class User : IdentityUser
     {
-        //Essential Properties
-        public int Id { get; set; }
-        public string UserName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
-        public string? DisplayName { get; set; }
-
-        public ICollection<UserMovie> UserMovie { get; set; } = new List<UserMovie>();
-
-
         //These are additional properties
-        //public string FirstName { get; set; } = string.Empty;
-        //public string LastName { get; set; } = string.Empty;
+        public string? DisplayName { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
 
-        //[StringLength(500)]
-        //public string? Bio { get; set; }
+        [StringLength(500)]
+        public string? Bio { get; set; }
+
+        public ICollection<UserMovie> UserMovies { get; set; } = new List<UserMovie>();
+
+
+
+
+        
 
         //public string? ProfilePictureUrl { get; set; }
         //public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

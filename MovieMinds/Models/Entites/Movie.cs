@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
 namespace MovieMinds.Models.Entites
 {
@@ -10,6 +9,7 @@ namespace MovieMinds.Models.Entites
 
         [MaxLength(300)] public string Title { get; set; } = "";
         public DateTime? ReleaseDate { get; set; }
+
         [MaxLength(400)] public string? PosterPath { get; set; }
         [MaxLength(400)] public string? BackdropPath { get; set; }
 
