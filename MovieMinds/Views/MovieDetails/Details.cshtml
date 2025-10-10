@@ -75,14 +75,20 @@
                     param-MovieId = "@Model.Movie.Id"
                     param-Initial = "false"
                 />
-                <button class="action-btn">
-                    <span>❤️</span>
-                    <span>Like</span>
-                </button>
-                <button class="action-btn">
-                    <span>📋</span>
-                    <span>Watchlist</span>
-                </button>
+
+                <component 
+                    type="typeof(LikeButton)"
+                    render-mode="ServerPrerendered"
+                    param-MovieId="@Model.Movie.Id"
+                    param-Initial="false"
+                />
+
+                <component 
+                    type="typeof(WatchListButton)"
+                    render-mode="ServerPrerendered"
+                    param-MovieId="@Model.Movie.Id"
+                    param-Initial="false"
+                />
             </div>
 
             <div class="ratings-section">
