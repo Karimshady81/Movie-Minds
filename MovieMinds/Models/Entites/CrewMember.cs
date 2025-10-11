@@ -16,6 +16,9 @@ namespace MovieMinds.Models.Entites
         [JsonPropertyName("department")]
         public string Department { get; set; } = default!;
 
+        [JsonPropertyName("order")]
+        public int Order { get; set; }
+
         //public string ProfilePath { get; set; } = default!;
     }
 }

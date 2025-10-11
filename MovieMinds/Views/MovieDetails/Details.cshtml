@@ -49,24 +49,12 @@
                 @Model.DisplayOverview
             </p>
 
-            <div class="tabs">
-                <div class="tab active">Cast</div>
-                <div class="tab">Crew</div>
-                <div class="tab">Details</div>
-                <div class="tab">Genres</div>
-                <div class="tab">Releases</div>
-            </div>
-
-            <div class="cast-grid">
-                @foreach (var cast in (Model.Cast ?? Array.Empty<CastMember>())
-                                                           .OrderBy(c => c.Order)
-                                                           .Take(10))
-                {
-                    <div class="cast-member">
-                        <div class="cast-name">@cast.Name</div>
-                    </div>
-                }
-            </div>
+            <component 
+                type="typeof(Tabs)" 
+                render-mode="ServerPrerendered"
+                param-Crew = "@Model.Crew"
+                param-Cast = "@Model.Cast"
+            />
 
             <div class="action-buttons">
                 <component 
