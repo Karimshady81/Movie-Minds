@@ -16,18 +16,29 @@ namespace MovieMinds.Controllers
         [HttpGet("movie/details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
-            var movie = await _movies.GetMovieDetailsAsync(id);
-            var cast = await _movies.GetMovieCastAsync(id);
-            var crew = await _movies.GetMovieCrewAsync(id);
-
-            var viewModel = new MovieDetailsViewModel
+            try
             {
-                Movie = movie,
-                Crew = crew,
-                Cast = cast
-            };
+                var movie = await _movies.GetMovieDetailsAsync(id);
+                if (movie is null)
+                    return NotFound();
 
-            return View(viewModel);
+                var cast = await _movies.GetMovieCastAsync(id);
+                var crew = await _movies.GetMovieCrewAsync(id);
+
+                var viewModel = new MovieDetailsViewModel
+                {
+                    Movie = movie,
+                    Crew = crew,
+                    Cast = cast
+                };
+
+                return View(viewModel);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading movie {id}: {ex.Message}");
+                return StatusCode(500, "An error occurred while loading the movie details.");
+            }
         }
     }
 }

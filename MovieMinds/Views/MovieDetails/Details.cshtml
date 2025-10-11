@@ -49,34 +49,38 @@
                 @Model.DisplayOverview
             </p>
 
-            <component 
-                type="typeof(Tabs)" 
-                render-mode="ServerPrerendered"
-                param-Crew = "@Model.Crew"
-                param-Cast = "@Model.Cast"
-            />
-
-            <div class="action-buttons">
+            <div class="movie-details-container">
                 <component 
-                    type = "typeof(WatchButton)" 
-                    render-mode = "ServerPrerendered"
-                    param-MovieId = "@Model.Movie.Id"
-                    param-Initial = "false"
-                />
-
-                <component 
-                    type="typeof(LikeButton)"
+                    type="typeof(Tabs)" 
                     render-mode="ServerPrerendered"
-                    param-MovieId="@Model.Movie.Id"
-                    param-Initial="false"
+                    param-Crew = "@Model.Crew"
+                    param-Cast = "@Model.Cast"
                 />
+            </div>
 
-                <component 
-                    type="typeof(WatchListButton)"
-                    render-mode="ServerPrerendered"
-                    param-MovieId="@Model.Movie.Id"
-                    param-Initial="false"
-                />
+            <div class="movie-action-container">
+                <div class="action-buttons">
+                    <component 
+                        type = "typeof(WatchButton)" 
+                        render-mode = "ServerPrerendered"
+                        param-MovieId = "@Model.Movie.Id"
+                        param-Initial = "false"
+                    />
+
+                    <component 
+                        type="typeof(LikeButton)"
+                        render-mode="ServerPrerendered"
+                        param-MovieId="@Model.Movie.Id"
+                        param-Initial="false"
+                    />
+
+                    <component 
+                        type="typeof(WatchListButton)"
+                        render-mode="ServerPrerendered"
+                        param-MovieId="@Model.Movie.Id"
+                        param-Initial="false"
+                    />
+                </div>
             </div>
 
             <div class="ratings-section">

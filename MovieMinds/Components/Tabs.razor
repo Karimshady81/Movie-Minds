@@ -31,13 +31,15 @@
             <div class="tab-crew">
                 @foreach(var group in crewGroups)
                 {
-                    <h3>@group.Key</h3>
-                    @foreach(var member in group.OrderBy(p => p.Order).ThenBy(p => p.Name))
-                    {
-                        <div>
-                            <p>@member.Name</p>
-                        </div>
-                    }
+                    <h3>
+                        <span class="hide">@group.Key</span>
+                        <span class="show">@group.Key</span>
+                    </h3>
+                    <div class="text-sluglist">
+                        <p class="text-outline">
+                            @FormatCrewMembers(group)
+                        </p>
+                    </div>
                 }
             </div>
  

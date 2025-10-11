@@ -43,7 +43,20 @@ namespace MovieMinds.Components
                              var i = Array.IndexOf(DisplayOrder, g.Key);
                              return i < 0 ? int.MaxValue : i;
                          })
-                         .ThenBy(g => g.Key);
+                         .ThenBy(g => g.Key)
+                         .Take(10);
+        }
+
+        private MarkupString FormatCrewMembers(IGrouping<string, CrewMember> group, int maxCount = 5)
+        {
+            var members = group
+                .OrderBy(p => p.Order)
+                .ThenBy(p => p.Name)
+                .Take(maxCount)
+                .Select(m => $"<p class=\"text-slug\">{m.Name}</span>")
+                .ToList();
+
+            return new MarkupString(string.Join("", members));
         }
     }
 }

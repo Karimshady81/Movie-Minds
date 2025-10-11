@@ -10,7 +10,18 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IMovieService, MovieService>();
 
 builder.Services.AddControllersWithViews();
-builder.Services.AddServerSideBlazor().AddCircuitOptions(o => { o.DetailedErrors = true; });
+builder.Services.AddServerSideBlazor(options =>
+{
+    options.DetailedErrors = true;
+    options.MaxBufferedUnacknowledgedRenderBatches = 10;
+});
+
+builder.Services.AddSignalR(options =>
+{
+    options.MaximumReceiveMessageSize = 102400000; // 100 MB (increased from default 32KB)
+    options.EnableDetailedErrors = true;
+});
+
 
 builder.Services.AddDbContext<MovieMindsDbContext>(options =>
 {
