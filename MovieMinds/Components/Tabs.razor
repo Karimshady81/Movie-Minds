@@ -12,11 +12,17 @@
     @if (activeTab == "Cast")
     {
         <div class="tab-cast">
-            @foreach(var member in GetCast())
+            @if (!castMembers.Any())
             {
-                <div class="cast-member">
-                    <div class="cast-name">@member.Name</div>
-                </div>
+                <p>No cast information available.</p>
+            }
+            else{
+                @foreach(var member in castMembers)
+                {
+                    <div class="cast-member">
+                        <div class="cast-name">@member.Name</div>
+                    </div>
+                }
             }
         </div>
     }
@@ -47,7 +53,30 @@
     }
     else if (activeTab == "Details")
     {
-        <p>Details here...</p>
+        @if(MovieDetails is null)
+        {
+            <p>No Details available now</p>
+        }
+        else
+        {
+            <div class = "tab-details">
+                <h3>
+                    <span class="hide">Status</span>
+                    <span class="show">Status</span>
+                </h3>
+                <h3>
+                    <span class="hide">Budget</span>
+                    <span class="show">Budget</span> 
+                </h3>
+                <div class="text-sluglist">
+                    <span class="text-slug">@MovieDetails.Status</span>
+                </div>
+                <div class="text-sluglist">
+                    <span class="text-slug">@MovieDetails.Budget</span>
+                </div>
+                
+            </div>
+        }
     }
     else if (activeTab == "Genres")
     {

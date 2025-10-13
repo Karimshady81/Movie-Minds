@@ -14,6 +14,9 @@ namespace MovieMinds.Models.DTO
         [JsonPropertyName("runtime")] public int? RunTime { get; set; }
         [JsonPropertyName("status")] public string? Status { get; set; }
         [JsonPropertyName("tagline")] public string? TagLine { get; set; }
+
+
+        //Details-tab properties
         [JsonPropertyName("revenue")] public long? Revenue { get; set; }
         [JsonPropertyName("budget")] public long? Budget { get; set; }
     }

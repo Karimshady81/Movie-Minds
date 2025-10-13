@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using MovieMinds.Models.DTO;
 using MovieMinds.Models.Entites;
 
 namespace MovieMinds.Components
@@ -7,6 +8,7 @@ namespace MovieMinds.Components
     {
         private string activeTab = "Cast";
 
+        [Parameter] public TmdbMovieDto MovieDetails { get; set; } = default!;
         [Parameter] public IReadOnlyList<CrewMember>? Crew { get; set; }
         [Parameter] public IReadOnlyList<CastMember>? Cast { get; set; }
 
@@ -15,36 +17,40 @@ namespace MovieMinds.Components
             activeTab = tab;
         }
 
-        private IEnumerable<CastMember> GetCast()
-        {
-            return (Cast ?? Array.Empty<CastMember>())
-                                  .OrderBy(c => c.Order)
-                                  .Take(10);
-        }
-
-        private static readonly string[] DisplayOrder =
+        private static readonly string[] DisplayJobs =
         [
-            "Director", "Producers", "Producer", "Executive Producer",
-            "Writer", "Original Writer", "Screenplay",
-            "Casting", "Editor", "Cinematography", "Production Design",
-            "Costume Design", "Music", "Sound", "Visual Effects"
+            "Director", "Director of Photography", "Producer",
+            "Writer", "Casting",
+            "Sound Mixer", "Editor",
+            "Production Design", "Costume Design","Gaffer",
         ];
 
         private IEnumerable<IGrouping<string, CrewMember>> crewGroups = Enumerable.Empty<IGrouping<string, CrewMember>>();
+        private IEnumerable<CastMember> castMembers = Enumerable.Empty<CastMember>();
 
         protected override void OnParametersSet()
         {
-            var items = Crew ?? Array.Empty<CrewMember>();
+            var castName = Cast ?? Array.Empty<CastMember>();
+            castMembers = castName
+                            .OrderBy(c => c.Order)
+                            .Take(20)
+                            .ToList();
 
-            crewGroups = items
-                         .GroupBy(c => c.Job?.Trim() ?? "Other")
-                         .OrderBy(g =>
+
+            var crewJobs = Crew ?? Array.Empty<CrewMember>();
+            var jobSet = new HashSet<string>(DisplayJobs, StringComparer.OrdinalIgnoreCase);
+
+            crewGroups = crewJobs
+                         .Where(c => !string.IsNullOrWhiteSpace(c.Job) && jobSet.Contains(c.Job.Trim()))
+                         .GroupBy(c => c.Job!.Trim(), StringComparer.OrdinalIgnoreCase)
+                         .Select(g => new
                          {
-                             var i = Array.IndexOf(DisplayOrder, g.Key);
-                             return i < 0 ? int.MaxValue : i;
+                             Group = g,
+                             Priority = Array.FindIndex(DisplayJobs, j => string.Equals(j, g.Key, StringComparison.OrdinalIgnoreCase))
                          })
-                         .ThenBy(g => g.Key)
-                         .Take(10);
+                         .OrderBy(x => x.Priority)
+                         .Select(x => x.Group)
+                         .ToList();
         }
 
         private MarkupString FormatCrewMembers(IGrouping<string, CrewMember> group, int maxCount = 5)
@@ -53,10 +59,13 @@ namespace MovieMinds.Components
                 .OrderBy(p => p.Order)
                 .ThenBy(p => p.Name)
                 .Take(maxCount)
-                .Select(m => $"<p class=\"text-slug\">{m.Name}</span>")
+                .Select(m => $"<span class=\"text-slug\">{m.Name}</span>")
                 .ToList();
 
             return new MarkupString(string.Join("", members));
         }
+
+
+
     }
 }
