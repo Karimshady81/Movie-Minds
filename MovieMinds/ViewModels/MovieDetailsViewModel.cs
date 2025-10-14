@@ -5,7 +5,7 @@ namespace MovieMinds.ViewModels
     public class MovieDetailsViewModel
     {
         public TmdbMovieDto Movie { get; set; } = default!;
-        public IReadOnlyList<ReleaseDateCountryDto>? ReleaseDates { get; set; }
+        public MovieReleaseDatesDto ReleaseDates { get; set; } = default!;
         public IReadOnlyList<CrewMemberDto>? Crew { get; set; }
         public IReadOnlyList<CastMemberDto>? Cast { get; set; }
 

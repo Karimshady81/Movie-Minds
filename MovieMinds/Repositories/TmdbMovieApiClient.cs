@@ -39,13 +39,12 @@ namespace MovieMinds.Repositories
             return await response.Content.ReadFromJsonAsync<TmdbMovieDto>();
         }
 
-        public async Task<IReadOnlyList<ReleaseDateCountryDto>> GetMovieReleaseDates(int id)
+        public async Task<MovieReleaseDatesDto?> GetMovieReleaseDates(int id)
         {
             var respone = await _httpClient.GetAsync($"movie/{id}/release_dates");
             respone.EnsureSuccessStatusCode();
 
-            var releaseDatesResponse = await respone.Content.ReadFromJsonAsync<MovieReleaseDatesDto>();
-            return releaseDatesResponse?.Results ?? new List<ReleaseDateCountryDto>();
+            return await respone.Content.ReadFromJsonAsync<MovieReleaseDatesDto>(); 
         }
 
         public async Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id)

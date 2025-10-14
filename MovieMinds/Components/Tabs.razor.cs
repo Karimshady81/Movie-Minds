@@ -8,7 +8,7 @@ namespace MovieMinds.Components
         private string activeTab = "Cast";
 
         [Parameter] public TmdbMovieDto MovieDetails { get; set; } = default!;
-        [Parameter] public IReadOnlyList<ReleaseDateCountryDto>? ReleaseDates { get; set; }
+        [Parameter] public MovieReleaseDatesDto MovieDates { get; set; } = default!;
         [Parameter] public IReadOnlyList<CrewMemberDto>? Crew { get; set; }
         [Parameter] public IReadOnlyList<CastMemberDto>? Cast { get; set; }
 

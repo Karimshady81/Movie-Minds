@@ -32,7 +32,7 @@ namespace MovieMinds.Repositories
             return _tmdb.GetMovieCastAsync(id);
         }
 
-        public Task<IReadOnlyList<ReleaseDateCountryDto>> GetMovieReleaseDatesAsync(int id)
+        public Task<MovieReleaseDatesDto?> GetMovieReleaseDatesAsync(int id)
         {
             return _tmdb.GetMovieReleaseDates(id);
         }

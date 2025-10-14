@@ -7,7 +7,7 @@ namespace MovieMinds.Repositories.Interfaces
         Task<IReadOnlyList<TmdbMovieDto>> GetDiscoverAsync(int page = 1);
         Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync(int page = 1);
         Task<TmdbMovieDto?> GetMovieByIdAsync (int id);
-        Task<IReadOnlyList<ReleaseDateCountryDto>> GetMovieReleaseDates(int id);
+        Task<MovieReleaseDatesDto?> GetMovieReleaseDates(int id);
         Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id);
         Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id);
     }

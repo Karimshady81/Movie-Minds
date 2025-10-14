@@ -4,5 +4,5 @@ namespace MovieMinds.Models.DTO;
 
 public class MovieReleaseDatesDto
 {
-    public List<ReleaseDateCountryDto>? Results { get; set; }
+    public IEnumerable<ReleaseDateCountryDto>? Results { get; set; }
 }
