@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MovieMinds.Models.Entites
+namespace MovieMinds.Models.DTO
 {
-    public class CrewMember
+    public class CrewMemberDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }

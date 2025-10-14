@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Components;
 using MovieMinds.Models.DTO;
-using MovieMinds.Models.Entites;
 
 namespace MovieMinds.Components
 {
@@ -9,8 +8,9 @@ namespace MovieMinds.Components
         private string activeTab = "Cast";
 
         [Parameter] public TmdbMovieDto MovieDetails { get; set; } = default!;
-        [Parameter] public IReadOnlyList<CrewMember>? Crew { get; set; }
-        [Parameter] public IReadOnlyList<CastMember>? Cast { get; set; }
+        [Parameter] public IReadOnlyList<ReleaseDateCountryDto>? ReleaseDates { get; set; }
+        [Parameter] public IReadOnlyList<CrewMemberDto>? Crew { get; set; }
+        [Parameter] public IReadOnlyList<CastMemberDto>? Cast { get; set; }
 
         private void SetTab(string tab)
         {
@@ -25,19 +25,19 @@ namespace MovieMinds.Components
             "Production Design", "Costume Design","Gaffer",
         ];
 
-        private IEnumerable<IGrouping<string, CrewMember>> crewGroups = Enumerable.Empty<IGrouping<string, CrewMember>>();
-        private IEnumerable<CastMember> castMembers = Enumerable.Empty<CastMember>();
+        private IEnumerable<IGrouping<string, CrewMemberDto>> crewGroups = Enumerable.Empty<IGrouping<string, CrewMemberDto>>();
+        private IEnumerable<CastMemberDto> castMembers = Enumerable.Empty<CastMemberDto>();
 
         protected override void OnParametersSet()
         {
-            var castName = Cast ?? Array.Empty<CastMember>();
+            var castName = Cast ?? Array.Empty<CastMemberDto>();
             castMembers = castName
                             .OrderBy(c => c.Order)
                             .Take(20)
                             .ToList();
 
 
-            var crewJobs = Crew ?? Array.Empty<CrewMember>();
+            var crewJobs = Crew ?? Array.Empty<CrewMemberDto>();
             var jobSet = new HashSet<string>(DisplayJobs, StringComparer.OrdinalIgnoreCase);
 
             crewGroups = crewJobs
@@ -53,7 +53,7 @@ namespace MovieMinds.Components
                          .ToList();
         }
 
-        private MarkupString FormatCrewMembers(IGrouping<string, CrewMember> group, int maxCount = 5)
+        private MarkupString FormatCrewMembers(IGrouping<string, CrewMemberDto> group, int maxCount = 5)
         {
             var members = group
                 .OrderBy(p => p.Order)

@@ -1,5 +1,4 @@
 ﻿using MovieMinds.Models.DTO;
-using MovieMinds.Models.Entites;
 using MovieMinds.Repositories.Interfaces;
 
 namespace MovieMinds.Repositories
@@ -18,20 +17,24 @@ namespace MovieMinds.Repositories
             return _tmdb.GetNowPlayingAsync();
         }
 
-        public Task<TmdbMovieDto> GetMovieDetailsAsync(int id)
+        public Task<TmdbMovieDto?> GetMovieDetailsAsync(int id)
         {
             return _tmdb.GetMovieByIdAsync(id);
         }
 
-        public Task<IReadOnlyList<CrewMember>> GetMovieCrewAsync(int id)
+        public Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id)
         {
             return _tmdb.GetMovieCrewAsync(id);
         }
 
-        public Task<IReadOnlyList<CastMember>> GetMovieCastAsync(int id)
+        public Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id)
         {
             return _tmdb.GetMovieCastAsync(id);
         }
 
+        public Task<IReadOnlyList<ReleaseDateCountryDto>> GetMovieReleaseDatesAsync(int id)
+        {
+            return _tmdb.GetMovieReleaseDates(id);
+        }
     }
 }

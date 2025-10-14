@@ -39,22 +39,33 @@ namespace MovieMinds.Repositories
             return await response.Content.ReadFromJsonAsync<TmdbMovieDto>();
         }
 
-        public async Task<IReadOnlyList<CastMember>> GetMovieCastAsync(int id)
+        public async Task<IReadOnlyList<ReleaseDateCountryDto>> GetMovieReleaseDates(int id)
+        {
+            var respone = await _httpClient.GetAsync($"movie/{id}/release_dates");
+            respone.EnsureSuccessStatusCode();
+
+            var releaseDatesResponse = await respone.Content.ReadFromJsonAsync<MovieReleaseDatesDto>();
+            return releaseDatesResponse?.Results ?? new List<ReleaseDateCountryDto>();
+        }
+
+        public async Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id)
         {
             var response = await _httpClient.GetAsync($"movie/{id}/credits?language=en-US");
             response.EnsureSuccessStatusCode();
 
-            var castCreditsResponse = await response.Content.ReadFromJsonAsync<MovieCreditsResponse>();
-            return castCreditsResponse?.Cast ?? new List<CastMember>();
+            var castCreditsResponse = await response.Content.ReadFromJsonAsync<MovieCreditsDto>();
+            return castCreditsResponse?.Cast ?? new List<CastMemberDto>();
         }
 
-        public async Task<IReadOnlyList<CrewMember>> GetMovieCrewAsync(int id)
+        public async Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id)
         {
             var response = await _httpClient.GetAsync($"movie/{id}/credits?language=en-US");
             response.EnsureSuccessStatusCode();
 
-            var crewCreditsResponse = await response.Content.ReadFromJsonAsync<MovieCreditsResponse>();
-            return crewCreditsResponse?.Crew ?? new List<CrewMember>();
+            var crewCreditsResponse = await response.Content.ReadFromJsonAsync<MovieCreditsDto>();
+            return crewCreditsResponse?.Crew ?? new List<CrewMemberDto>();
         }
+
+        
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MovieMinds.Models.Entites
+namespace MovieMinds.Models.DTO
 {
-    public class CastMember
+    public class CastMemberDto
     {
         [JsonPropertyName("id")]
         public int Id { get; set; }
@@ -16,7 +16,7 @@ namespace MovieMinds.Models.Entites
         [JsonPropertyName("character")]
         public string Character { get; set; } = default!;
 
-        [JsonPropertyName("profile_path")]
-        public string ProfilePath { get; set; } = default!;
+        //[JsonPropertyName("profile_path")]
+        //public string ProfilePath { get; set; } = default!;
     }
 }

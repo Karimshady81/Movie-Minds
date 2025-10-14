@@ -1,18 +1,17 @@
 ﻿using MovieMinds.Models.DTO;
-using MovieMinds.Models.Entites;
 
 namespace MovieMinds.ViewModels
 {
     public class MovieDetailsViewModel
     {
         public TmdbMovieDto Movie { get; set; } = default!;
-        public IReadOnlyList<CrewMember>? Crew { get; set; }
-        public IReadOnlyList<CastMember>? Cast { get; set; }
-
+        public IReadOnlyList<ReleaseDateCountryDto>? ReleaseDates { get; set; }
+        public IReadOnlyList<CrewMemberDto>? Crew { get; set; }
+        public IReadOnlyList<CastMemberDto>? Cast { get; set; }
 
 
         //Helpers
-        public CrewMember? Director => Crew?.FirstOrDefault(c => c.Job == "Director");
+        public CrewMemberDto? Director => Crew?.FirstOrDefault(c => c.Job == "Director");
 
         //Fallbacks
         public string DisplayYear => DateTime.TryParse(Movie.ReleaseDate.ToString(), out var d) ? d.Year.ToString() : "-";

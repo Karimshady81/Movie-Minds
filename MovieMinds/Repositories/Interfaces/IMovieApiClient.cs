@@ -1,5 +1,4 @@
 ﻿using MovieMinds.Models.DTO;
-using MovieMinds.Models.Entites;
 
 namespace MovieMinds.Repositories.Interfaces
 {
@@ -8,7 +7,8 @@ namespace MovieMinds.Repositories.Interfaces
         Task<IReadOnlyList<TmdbMovieDto>> GetDiscoverAsync(int page = 1);
         Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync(int page = 1);
         Task<TmdbMovieDto?> GetMovieByIdAsync (int id);
-        Task<IReadOnlyList<CastMember>> GetMovieCastAsync(int id);
-        Task<IReadOnlyList<CrewMember>> GetMovieCrewAsync(int id);
+        Task<IReadOnlyList<ReleaseDateCountryDto>> GetMovieReleaseDates(int id);
+        Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id);
+        Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id);
     }
 }

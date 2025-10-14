@@ -24,12 +24,14 @@ namespace MovieMinds.Controllers
 
                 var cast = await _movies.GetMovieCastAsync(id);
                 var crew = await _movies.GetMovieCrewAsync(id);
+                var releaseDates = await _movies.GetMovieReleaseDatesAsync(id);
 
                 var viewModel = new MovieDetailsViewModel
                 {
                     Movie = movie,
                     Crew = crew,
-                    Cast = cast
+                    Cast = cast,
+                    ReleaseDates = releaseDates
                 };
 
                 return View(viewModel);

@@ -8,13 +8,12 @@
 
 
 <div class="tab-content">
-
     @if (activeTab == "Cast")
     {
         <div class="tab-cast">
             @if (!castMembers.Any())
             {
-                <p>No cast information available.</p>
+                <span class="text-slug">No cast information available.</span>
             }
             else{
                 @foreach(var member in castMembers)
@@ -30,7 +29,7 @@
     {
         @if (!crewGroups.Any())
         {
-            <p>No crew information available.</p>
+            <span>No crew information available.</span>
         }
         else
         {
@@ -55,7 +54,7 @@
     {
         @if(MovieDetails is null)
         {
-            <p>No Details available now</p>
+            <span class="text-slug">No Details available now</span>
         }
         else
         {
@@ -100,7 +99,7 @@
                                 }
                                 else
                                 {
-                                    <span class="text-slug">@country.CountryName</span>                                    
+                                    <span class="text-slug">@country.CountryName</span>                               
                                 }
                             }
                         }
@@ -156,11 +155,47 @@
     }
     else if (activeTab == "Genres")
     {
-        <p>Genres here...</p>
+        @if(MovieDetails is null)
+        {
+            <span class="text-slug">No Details available now</span>
+        }
+        else
+        {
+            <div class="tab-genres">
+                <h3>
+                    <span class="hide">Genres</span>
+                    <span class="show">Genres</span>
+                </h3>
+                <div class="text-sluglist">
+                       <p class="text-outline">
+                        @if(MovieDetails.Genres is null)
+                        {
+                            <span class="text-slug">N/A</span>
+                        }
+                        else
+                        {
+                            @foreach(var genre in MovieDetails.Genres)
+                            {
+                                <span class="text-slug">@genre.Name</span>
+                            }
+                        }
+                       </p>
+                </div>
+            </div>
+        }
     }
     else if (activeTab == "Releases")
     {
-        <p>Release info here...</p>
+        @if(ReleaseDates is null)
+        {
+            <span class="text-slug">No release dates yet</span>
+        }
+        else
+        {
+            <div class="tab-releases">
+
+            </div>
+        }
     }
 </div>
 

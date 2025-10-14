@@ -284,10 +284,6 @@ button.tab.active {
 
 /********************************/
 /*Crew Section*/
-
-.tab-crew {
-}
-
 .tab-crew::after {
     content: "";
     display: table;
@@ -407,6 +403,90 @@ p .text-slug {
 }
 
 .tab-details .text-sluglist {
+    margin-left: 13.84615385em;
+}
+
+/********************************/
+/* Tab Genres Section*/
+.tab-genres::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.tab-genres h3 {
+    float: left;
+    clear: left;
+    border-bottom: 1px dotted #456;
+    margin-top: 2px;
+    font-size: 16px;
+    width: 26em;
+}
+
+.tab-genres h3 span {
+    color: #789;
+    text-transform: uppercase;
+    --letter-spacing: .075em;
+    letter-spacing: var(--letter-spacing);
+    line-height: 1.1;
+    position: relative;
+    top: 3px;
+    background-color: #14181c;
+    padding: 1px .2em 0 0;
+}
+
+.tab-genres h3 span.hide {
+    display: none;
+}
+
+.tab-genres h3 span.show {
+    display: inline;
+    font-size: 1.2rem;
+}
+
+.tab-genres .text-sluglist {
+    margin-left: 13.84615385em;
+}
+
+/********************************/
+/* Tab Release dates Section*/
+.tab-releases::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.tab-releases h3 {
+    float: left;
+    clear: left;
+    border-bottom: 1px dotted #456;
+    margin-top: 2px;
+    font-size: 16px;
+    width: 26em;
+}
+
+.tab-releases h3 span {
+    color: #789;
+    text-transform: uppercase;
+    --letter-spacing: .075em;
+    letter-spacing: var(--letter-spacing);
+    line-height: 1.1;
+    position: relative;
+    top: 3px;
+    background-color: #14181c;
+    padding: 1px .2em 0 0;
+}
+
+.tab-releases h3 span.hide {
+    display: none;
+}
+
+.tab-releases h3 span.show {
+    display: inline;
+    font-size: 1.2rem;
+}
+
+.tab-releases .text-sluglist {
     margin-left: 13.84615385em;
 }
 
