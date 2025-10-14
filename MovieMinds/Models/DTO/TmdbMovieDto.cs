@@ -19,5 +19,8 @@ namespace MovieMinds.Models.DTO
         //Details-tab properties
         [JsonPropertyName("revenue")] public long? Revenue { get; set; }
         [JsonPropertyName("budget")] public long? Budget { get; set; }
+        [JsonPropertyName("production_companies")] public IEnumerable<ProductionCompaniesDto>? ProductionCompanies { get; set; }
+        [JsonPropertyName("production_countries")] public IEnumerable<ProductionCountriesDto>? ProductionCountries { get; set; }
+        [JsonPropertyName("spoken_languages")] public IEnumerable<SpokenLanguageDto>? SpokenLanguage { get; set; }
     }
 }

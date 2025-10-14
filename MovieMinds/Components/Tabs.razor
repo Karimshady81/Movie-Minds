@@ -61,20 +61,96 @@
         {
             <div class = "tab-details">
                 <h3>
-                    <span class="hide">Status</span>
-                    <span class="show">Status</span>
+                    <span class="hide">Studio</span>
+                    <span class="show">Studio</span>
                 </h3>
+                <div class="text-sluglist">
+                       <p class="text-outline">
+                        @if(MovieDetails.ProductionCompanies is null)
+                        {
+                            <span class="text-slug">No companies available</span>
+                        }
+                        else
+                        {
+                            @foreach(var studio in MovieDetails.ProductionCompanies)
+                            {
+                                <span class="text-slug">@studio.Name</span>
+                            }
+                        }
+                       </p>
+                </div>
+                <h3>
+                    <span class="hide">Country</span>
+                    <span class="show">Country</span>
+                </h3>
+                <div class="text-sluglist">
+                       <p class="text-outline">
+                        @if(MovieDetails.ProductionCountries is null)
+                        {
+                            <span class="text-slug">N/A</span>
+                        }
+                        else
+                        {
+                            @foreach(var country in MovieDetails.ProductionCountries)
+                            {
+                                @if(country.UsName == "US")
+                                {
+                                    <span class="text-slug">@country.UsName</span>
+                                    continue;
+                                }
+                                else
+                                {
+                                    <span class="text-slug">@country.CountryName</span>                                    
+                                }
+                            }
+                        }
+                       </p>
+                </div>
+                <h3>
+                    <span class="hide">Spoken language</span>
+                    <span class="show">Spoken language</span>
+                </h3>
+                <div class="text-sluglist">
+                       <p class="text-outline">
+                        @if(MovieDetails.SpokenLanguage is null)
+                        {
+                            <span class="text-slug">N/A</span>
+                        }
+                        else
+                        {
+                            @foreach(var language in MovieDetails.SpokenLanguage)
+                            {
+                                <span class="text-slug">@language.Language</span>
+                            }
+                        }
+                       </p>
+                </div>
                 <h3>
                     <span class="hide">Budget</span>
-                    <span class="show">Budget</span> 
+                    <span class="show">Budget</span>
                 </h3>
                 <div class="text-sluglist">
-                    <span class="text-slug">@MovieDetails.Status</span>
+                    <p class="text-outline">
+                        <span class="text-slug">
+                            @(MovieDetails.Budget.GetValueOrDefault() == 0 ?
+                            "N/A"   
+                            : MovieDetails.Budget!.Value.ToString("C0"))
+                        </span>
+                    </p>
                 </div>
+                <h3>
+                    <span class="hide">Revenue</span>
+                    <span class="show">Revenue</span>
+                </h3>
                 <div class="text-sluglist">
-                    <span class="text-slug">@MovieDetails.Budget</span>
+                    <p class="text-outline">
+                        <span class="text-slug">
+                            @(MovieDetails.Revenue.GetValueOrDefault() == 0 ?
+                            "N/A"
+                            : MovieDetails.Revenue!.Value.ToString("C0"))
+                        </span>
+                    </p>
                 </div>
-                
             </div>
         }
     }
