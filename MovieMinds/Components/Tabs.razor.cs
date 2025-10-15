@@ -69,6 +69,7 @@ namespace MovieMinds.Components
             releaseDatesByType = MovieDates.Results!
                                         .SelectMany(country => (country.ReleaseDates ?? Enumerable.Empty<ReleaseDatesInfoDto>())
                                         .Select(rd => (ReleaseInfo: rd, Country: country.CountryCode ?? "Unknown")))
+                                        .OrderBy(x => x.ReleaseInfo.ReleaseDate)
                                         .GroupBy(x => x.ReleaseInfo.Type)
                                         .OrderBy(g => g.Key)
                                         .ToList();
