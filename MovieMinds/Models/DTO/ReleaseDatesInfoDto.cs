@@ -10,6 +10,9 @@ namespace MovieMinds.Models.DTO
         [JsonPropertyName("release_date")]
         public DateTime? ReleaseDate { get; set; }
 
+        [JsonPropertyName("note")]
+        public string? Note { get; set; }
+
         [JsonPropertyName("type")]
         public int Type { get; set; }
     }

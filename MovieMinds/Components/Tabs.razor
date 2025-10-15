@@ -197,14 +197,32 @@
                 @foreach(var typeGroup in releaseDatesByType!)
                 {
                     <div class="release-type-group">
-                        <h3>@GetReleaseTypeName(typeGroup.Key)</h3>
+                        <h3 class="release-type-title">@GetReleaseTypeName(typeGroup.Key)</h3>
 
                         @foreach(var releaseDate in typeGroup)
                         {
                             <div class="release-date-item">
-                                <span>@releaseDate.ReleaseInfo.ReleaseDate?.ToString("MMMM dd, yyyy")</span>
-                                <span>@releaseDate.Country</span>
-                                <span>@releaseDate.ReleaseInfo.Certification</span>
+                                <div class="list-item">
+                                    <div class="cell">
+                                        <span>@releaseDate.ReleaseInfo.ReleaseDate?.ToString("dd MMM yyyy")</span>
+                                    </div>
+                                    <div class="cell countries">
+                                        <span>
+                                            @(releaseDate.CountryCode == "US"
+                                                ? "USA" 
+                                                : releaseDate.CountryCode == "GB" 
+                                                ? "UK" 
+                                                : CountryNames.FirstOrDefault(c => c!.CountryCode == releaseDate.CountryCode)?.EnglishName ?? releaseDate.CountryCode
+                                            )
+                                        </span>
+                                        <span class="certification">
+                                            @(string.IsNullOrEmpty(releaseDate.ReleaseInfo.Certification) ? 
+                                            "NR" 
+                                            : releaseDate.ReleaseInfo.Certification)
+                                        </span>
+                                        <span>@releaseDate.ReleaseInfo.Note</span>
+                                    </div>
+                                </div>
                             </div>
                         }
                     </div>

@@ -7,6 +7,7 @@ namespace MovieMinds.Components
     {
         private string activeTab = "Cast";
 
+        [Parameter] public List<CountryNamesDto?> CountryNames { get; set; } = default!;
         [Parameter] public TmdbMovieDto MovieDetails { get; set; } = default!;
         [Parameter] public MovieReleaseDatesDto MovieDates { get; set; } = default!;
         [Parameter] public IReadOnlyList<CrewMemberDto>? Crew { get; set; }
@@ -41,7 +42,7 @@ namespace MovieMinds.Components
 
         private IEnumerable<IGrouping<string, CrewMemberDto>> crewGroups = Enumerable.Empty<IGrouping<string, CrewMemberDto>>();
         private IEnumerable<CastMemberDto> castMembers = Enumerable.Empty<CastMemberDto>();
-        private IEnumerable<IGrouping<int, (ReleaseDatesInfoDto ReleaseInfo, string Country)>>? releaseDatesByType;
+        private IEnumerable<IGrouping<int, (ReleaseDatesInfoDto ReleaseInfo, string CountryCode)>>? releaseDatesByType;
 
         protected override void OnParametersSet()
         {

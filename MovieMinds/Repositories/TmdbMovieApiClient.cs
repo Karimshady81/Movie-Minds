@@ -65,6 +65,12 @@ namespace MovieMinds.Repositories
             return crewCreditsResponse?.Crew ?? new List<CrewMemberDto>();
         }
 
-        
+        public async Task<List<CountryNamesDto>?> GetCountriesName()
+        {
+            var response = await _httpClient.GetAsync("configuration/countries");
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<List<CountryNamesDto>>();
+        }
     }
 }

@@ -36,5 +36,10 @@ namespace MovieMinds.Repositories
         {
             return _tmdb.GetMovieReleaseDates(id);
         }
+
+        public Task<List<CountryNamesDto>?> GetCountryNamesAsync()
+        {
+            return _tmdb.GetCountriesName();
+        }
     }
 }
