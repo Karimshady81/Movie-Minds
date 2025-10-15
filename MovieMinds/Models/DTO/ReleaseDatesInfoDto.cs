@@ -8,7 +8,7 @@ namespace MovieMinds.Models.DTO
         public string? Certification { get; set; }
 
         [JsonPropertyName("release_date")]
-        public string? ReleaseDate { get; set; }
+        public DateTime? ReleaseDate { get; set; }
 
         [JsonPropertyName("type")]
         public int Type { get; set; }

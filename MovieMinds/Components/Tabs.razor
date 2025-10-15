@@ -1,4 +1,5 @@
-﻿<div class="tabs"
+﻿@using MovieMinds.Models.DTO
+<div class="tabs"
     <button class=@($"tab {(activeTab == "Cast" ? "active" : "")}") @onclick="@(() => SetTab("Cast"))">Cast</button>
     <button class=@($"tab {(activeTab == "Crew" ? "active" : "")}") @onclick="@(() => SetTab("Crew"))">Crew</button>
     <button class=@($"tab {(activeTab == "Details" ? "active" : "")}") @onclick="@(() => SetTab("Details"))">Details</button>
@@ -186,19 +187,29 @@
     }
     else if (activeTab == "Releases")
     {
-        @if(MovieDates is null)
+        @if(MovieDates?.Results is null || !MovieDates.Results.Any())
         {
             <span class="text-slug">No release dates yet</span>
         }
         else
         {
             <div class="tab-releases">
-                <h3>
-                    
-                </h3>
+                @foreach(var typeGroup in releaseDatesByType!)
+                {
+                    <div class="release-type-group">
+                        <h3>@GetReleaseTypeName(typeGroup.Key)</h3>
+
+                        @foreach(var releaseDate in typeGroup)
+                        {
+                            <div class="release-date-item">
+                                <span>@releaseDate.ReleaseInfo.ReleaseDate?.ToString("MMMM dd, yyyy")</span>
+                                <span>@releaseDate.Country</span>
+                                <span>@releaseDate.ReleaseInfo.Certification</span>
+                            </div>
+                        }
+                    </div>
+                }
             </div>
         }
     }
 </div>
-
-

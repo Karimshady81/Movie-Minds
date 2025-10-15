@@ -25,8 +25,23 @@ namespace MovieMinds.Components
             "Production Design", "Costume Design","Gaffer",
         ];
 
+        private string GetReleaseTypeName(int type)
+        {
+            return type switch
+            {
+                1 => "Premiere",
+                2 => "Theatrical (limited)",
+                3 => "Theatrical",
+                4 => "Digital",
+                5 => "Physical",
+                6 => "TV",
+                _ => "Unknown"
+            };
+        }
+
         private IEnumerable<IGrouping<string, CrewMemberDto>> crewGroups = Enumerable.Empty<IGrouping<string, CrewMemberDto>>();
         private IEnumerable<CastMemberDto> castMembers = Enumerable.Empty<CastMemberDto>();
+        private IEnumerable<IGrouping<int, (ReleaseDatesInfoDto ReleaseInfo, string Country)>>? releaseDatesByType;
 
         protected override void OnParametersSet()
         {
@@ -35,7 +50,6 @@ namespace MovieMinds.Components
                             .OrderBy(c => c.Order)
                             .Take(20)
                             .ToList();
-
 
             var crewJobs = Crew ?? Array.Empty<CrewMemberDto>();
             var jobSet = new HashSet<string>(DisplayJobs, StringComparer.OrdinalIgnoreCase);
@@ -51,6 +65,13 @@ namespace MovieMinds.Components
                          .OrderBy(x => x.Priority)
                          .Select(x => x.Group)
                          .ToList();
+
+            releaseDatesByType = MovieDates.Results!
+                                        .SelectMany(country => (country.ReleaseDates ?? Enumerable.Empty<ReleaseDatesInfoDto>())
+                                        .Select(rd => (ReleaseInfo: rd, Country: country.CountryCode ?? "Unknown")))
+                                        .GroupBy(x => x.ReleaseInfo.Type)
+                                        .OrderBy(g => g.Key)
+                                        .ToList();
         }
 
         private MarkupString FormatCrewMembers(IGrouping<string, CrewMemberDto> group, int maxCount = 5)
