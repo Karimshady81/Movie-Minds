@@ -199,28 +199,31 @@
                     <div class="release-type-group">
                         <h3 class="release-type-title">@GetReleaseTypeName(typeGroup.Key)</h3>
 
-                        @foreach(var releaseDate in typeGroup)
+                        @foreach(var dateGroup in typeGroup.GroupBy(rd => rd.ReleaseInfo.ReleaseDate))
                         {
                             <div class="release-date-item">
                                 <div class="list-item">
                                     <div class="cell">
-                                        <span>@releaseDate.ReleaseInfo.ReleaseDate?.ToString("dd MMM yyyy")</span>
+                                        <span>@dateGroup.Key?.ToString("dd MMM yyyy")</span>
                                     </div>
                                     <div class="cell countries">
-                                        <span>
-                                            @(releaseDate.CountryCode == "US"
-                                                ? "USA" 
-                                                : releaseDate.CountryCode == "GB" 
-                                                ? "UK" 
-                                                : CountryNames.FirstOrDefault(c => c!.CountryCode == releaseDate.CountryCode)?.EnglishName ?? releaseDate.CountryCode
-                                            )
-                                        </span>
-                                        <span class="certification">
-                                            @(string.IsNullOrEmpty(releaseDate.ReleaseInfo.Certification) ? 
-                                            "NR" 
-                                            : releaseDate.ReleaseInfo.Certification)
-                                        </span>
-                                        <span>@releaseDate.ReleaseInfo.Note</span>
+                                        @foreach(var release in dateGroup)
+                                        {                                          
+                                            <span>
+                                                @(release.CountryCode == "US"
+                                                    ? "USA" 
+                                                    : release.CountryCode == "GB" 
+                                                    ? "UK" 
+                                                    : CountryNames.FirstOrDefault(c => c!.CountryCode == release.CountryCode)?.EnglishName ?? release.CountryCode
+                                                )
+                                            </span>
+                                            <span class="certification">
+                                                @(string.IsNullOrEmpty(release.ReleaseInfo.Certification) ? 
+                                                "NR" 
+                                                : release.ReleaseInfo.Certification)
+                                            </span>
+                                            <span>@release.ReleaseInfo.Note</span>
+                                        }
                                     </div>
                                 </div>
                             </div>

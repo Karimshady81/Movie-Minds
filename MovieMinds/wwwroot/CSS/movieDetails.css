@@ -499,10 +499,12 @@ p .text-slug {
 }*/
 
 .cell.countries {
-    flex: 0 0 440px;
+    flex: 0 0 500px;
     display: flex;
     align-items: center;
     gap: 8px;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 /*.cell:last-child {
