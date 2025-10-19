@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MovieMinds.Models.DTO.TmdbMovieDto>
+﻿@model DiscoverViewModel
 
 <div class="home-Img">
     <img src="\Images\HomeBanner.jpg"/>
@@ -9,19 +9,29 @@
         </h1>     
     </div>
 </div>
-<div class="home-Container">
-    <h2 class="container-Title">Now Playing</h2>
-    <div class="home-Grid">  
-        @foreach(var movie in Model)
-        {
-            <div class="movie-Banner">
-                <a class="movie-Details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
-                    <div>
-                        <img class="movie-Card-Img" src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title"/>
-                        <p class="movie-Card-Title">@movie.Title</p>
-                    </div>
-                </a>
-            </div>
-        }
+<div class="index-container">
+    <div class="page-header">
+        <h2 class="page-title serif">Now Playing</h2>
     </div>
+    <main>
+        <div class="movies-grid view-grid" id="moviesGrid">
+            @foreach (var movie in Model.Cards)
+            {
+                <div class="movie-card">
+                    <a class="movie-Details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
+                        <div class="movie-poster">
+                            <img src="@movie.Poster" alt="@movie.Title">
+                            <div class="movie-overlay"></div>
+                            <div class="movie-rating">@movie.VoteAverage</div>
+                            <div class="movie-info">
+                                <div class="movie-year">@movie.Year</div>
+                                <div class="movie-genre">@movie.Genres</div>
+                            </div>
+                        </div>
+                    </a>
+                    <h3 class="movie-title serif">@movie.Title</h3>
+                </div>
+            }
+        </div>
+    </main>
 </div>

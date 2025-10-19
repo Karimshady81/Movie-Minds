@@ -5,7 +5,7 @@ namespace MovieMinds.Repositories.Interfaces
     public interface IMovieApiClient
     {
         Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1);
-        Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync(int page = 1);
+        Task<MovieListResponeDto?> GetNowPlayingAsync(int page = 1);
         Task<TmdbMovieDto?> GetMovieByIdAsync (int id);
         Task<MovieReleaseDatesDto?> GetMovieReleaseDates(int id);
         Task<List<CountryNamesDto>?> GetCountriesName();

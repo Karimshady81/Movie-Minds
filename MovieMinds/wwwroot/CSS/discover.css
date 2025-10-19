@@ -1,10 +1,4 @@
 ﻿/* Main Content */
-main {
-    max-width: 1280px;
-    margin: 0 auto;
-    padding: 2rem 1.5rem;
-}
-
 .page-header {
     margin-bottom: 2rem;
 }
@@ -88,7 +82,7 @@ select {
 
 select:focus {
     outline: none;
-    border-color: #f97316;
+    border-color: hsl(36, 80%, 58%);
     box-shadow: 0 0 0 1px #f97316;
 }
 
@@ -138,10 +132,10 @@ select:focus {
     color: #9ca3af;
 }
 
-    .results-count span {
-        color: #f97316;
-        font-weight: 500;
-    }
+.results-count span {
+    color: hsl(36, 80%, 58%);
+    font-weight: 500;
+}
 
 /* Movies Grid */
 .movies-grid {
@@ -150,13 +144,13 @@ select:focus {
     grid-template-columns: repeat(2, 1fr);
 }
 
-    .movies-grid.view-grid {
-        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    }
+.movies-grid.view-grid {
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+}
 
-    .movies-grid.view-compact {
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    }
+.movies-grid.view-compact {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+}
 
 .movie-card {
     cursor: pointer;
@@ -174,7 +168,7 @@ select:focus {
 }
 
 .movie-card:hover .movie-poster {
-    border-color: rgba(249, 115, 22, 0.5);
+    border-color: hsl(36, 80%, 58%);
 }
 
 .movie-poster img {
@@ -209,8 +203,8 @@ select:focus {
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-size: 0.75rem;
-    color: #f97316;
-    border: 1px solid rgba(249, 115, 22, 0.3);
+    color: hsl(36, 80%, 58%);
+    border: 1px solid hsl(36, 80%, 58%);
 }
 
 .movie-info {
@@ -248,7 +242,7 @@ select:focus {
 }
 
 .movie-card:hover .movie-title {
-    color: #f97316;
+    color: hsl(36, 80%, 58%);
 }
 
 /* Load More */

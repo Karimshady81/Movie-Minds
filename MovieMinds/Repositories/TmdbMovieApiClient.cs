@@ -21,13 +21,12 @@ namespace MovieMinds.Repositories
             return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
         }
 
-        public async Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync(int page = 1)
+        public async Task<MovieListResponeDto?> GetNowPlayingAsync(int page = 1)
         {
             var response = await _httpClient.GetAsync($"movie/now_playing?page={page}");
             response.EnsureSuccessStatusCode();
 
-            var nowPlayingResponse = await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
-            return (nowPlayingResponse?.Results ?? new()).AsReadOnly(); 
+            return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
         }
 
         public async Task<TmdbMovieDto?> GetMovieByIdAsync(int id)

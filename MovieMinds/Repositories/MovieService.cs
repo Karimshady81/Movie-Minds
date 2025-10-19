@@ -17,7 +17,7 @@ namespace MovieMinds.Repositories
             return _tmdb.GetDiscoverAsync();
         }
 
-        public Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync()
+        public Task<MovieListResponeDto?> GetNowPlayingAsync()
         {
             return _tmdb.GetNowPlayingAsync();
         }
