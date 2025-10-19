@@ -8,6 +8,7 @@
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/movieDetails.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/discover.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/nav.css"/>
     <link rel="stylesheet" href="~/css/footer.css"/>
     <base href="~/" />
@@ -21,7 +22,7 @@
         
         <ul class="new-Links" id="navSection">
             <li><a href="/">Home</a></li>
-            <li><a href="/films">Films</a></li>
+            <li><a asp-controller="Discover" asp-action="Discover">Films</a></li>
             <li class="">Sign In</li>
             
             <!-- User dropdown (when logged in) - hidden by default -->

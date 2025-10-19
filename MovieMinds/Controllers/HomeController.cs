@@ -15,7 +15,7 @@ namespace MovieMinds.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View(await _movies.GetHomeMoviesAsync());
+            return View(await _movies.GetNowPlayingAsync());
         }
     }
 }

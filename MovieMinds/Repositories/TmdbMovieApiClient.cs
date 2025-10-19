@@ -13,13 +13,12 @@ namespace MovieMinds.Repositories
             _httpClient = httpClient;
         }
 
-        public async Task<IReadOnlyList<TmdbMovieDto>> GetDiscoverAsync(int page = 1)
+        public async Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1)
         {
             var response = await _httpClient.GetAsync($"discover/movie?page={page}");
             response.EnsureSuccessStatusCode();
 
-            var dto = await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
-            return (dto?.Results ?? new()).AsReadOnly();
+            return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
         }
 
         public async Task<IReadOnlyList<TmdbMovieDto>> GetNowPlayingAsync(int page = 1)
@@ -27,8 +26,8 @@ namespace MovieMinds.Repositories
             var response = await _httpClient.GetAsync($"movie/now_playing?page={page}");
             response.EnsureSuccessStatusCode();
 
-            var dto = await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
-            return (dto?.Results ?? new()).AsReadOnly(); 
+            var nowPlayingResponse = await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
+            return (nowPlayingResponse?.Results ?? new()).AsReadOnly(); 
         }
 
         public async Task<TmdbMovieDto?> GetMovieByIdAsync(int id)
