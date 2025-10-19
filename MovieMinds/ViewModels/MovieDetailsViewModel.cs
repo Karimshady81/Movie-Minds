@@ -21,8 +21,8 @@ namespace MovieMinds.ViewModels
 
         public string DisplayDirector => Director != null ? Director.Name : "-";
 
-        public string DisplayTagLine => string.IsNullOrWhiteSpace(Movie.TagLine) ? "No Tag line available" : Movie.TagLine;
+        public string DisplayTagLine => string.IsNullOrWhiteSpace(Movie.TagLine) ? "N/A" : Movie.TagLine;
 
-        public string DisplayOverview => string.IsNullOrWhiteSpace(Movie.Overview) ? "No Overview available" : Movie.Overview;
+        public string DisplayOverview => string.IsNullOrWhiteSpace(Movie.Overview) ? "N/A" : Movie.Overview;
     }
 }
