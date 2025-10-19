@@ -7,6 +7,7 @@ public class DiscoverViewModel
     public IReadOnlyList<TmdbMovieDto> Movies { get; set; } = Array.Empty<TmdbMovieDto>();
     public int Page { get; init; }
     public int TotalResults { get; init; }
+    public int TotalPages { get; set; }
 
 
     //Helpers
@@ -33,6 +34,23 @@ public class DiscoverViewModel
         { 37, "Western" }
     };
     public static string GetName(int id) => Genres.TryGetValue(id, out var name) ? name : "Unknown";
+
+    public IEnumerable<int> GetPageNumbers()
+    {
+        const int maxPagesToShow = 10;
+        int startPage = Math.Max(1, Page - maxPagesToShow / 2);
+        int endPage = Math.Min(TotalPages, startPage + maxPagesToShow - 1);
+
+        if (endPage - startPage < maxPagesToShow - 1)
+        {
+            startPage = Math.Max(1, endPage - maxPagesToShow + 1);
+        }
+
+        return Enumerable.Range(startPage, endPage - startPage + 1);
+    }
+
+    public bool HasPreviousPage => Page > 1;
+    public bool HasNextPage => Page < TotalPages;
 
     public IReadOnlyList<MovieCardVm> Cards =>
        Movies.Select(m => new MovieCardVm

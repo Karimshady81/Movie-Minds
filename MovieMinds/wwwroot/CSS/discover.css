@@ -145,11 +145,7 @@ select:focus {
 }
 
 .movies-grid.view-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-}
-
-.movies-grid.view-compact {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 }
 
 .movie-card {
@@ -245,26 +241,102 @@ select:focus {
     color: hsl(36, 80%, 58%);
 }
 
-/* Load More */
-.load-more {
-    margin-top: 3rem;
-    text-align: center;
+/* Pagination Styles */
+nav[aria-label="Movie pagination"] {
+    margin: 35px 0 20px;
 }
 
-.load-more-btn {
-    background: #f97316;
-    color: white;
-    border: none;
-    padding: 0.75rem 2rem;
-    border-radius: 0.5rem;
-    font-size: 1rem;
+.pagination-nav {
+    margin: 60px 0 40px;
+}
+
+.pagination-nav .pagination {
+    display: flex;
+    gap: 12px;
+    list-style: none;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 0;
+}
+
+.pagination-nav .page-item {
+    display: inline-block;
+}
+
+.pagination-nav .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+    height: 45px;
+    padding: 0 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #e0e0e0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
     cursor: pointer;
-    transition: all 0.2s;
-    box-shadow: 0 10px 15px -3px rgba(249, 115, 22, 0.2);
+    backdrop-filter: blur(10px);
 }
 
-.load-more-btn:hover {
-    background: #ea580c;
+.pagination-nav .page-link:hover {
+    border-color: hsl(36, 80%, 58%);
+    color: #f5aa02;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px  ;
 }
+
+.pagination-nav .page-item.active .page-link {
+    color: white;
+    border-color: hsl(36, 80%, 58%);
+    box-shadow: 0 6px 25px hsl(36, 80%, 58%);
+    font-weight: 600;
+}
+
+.pagination-nav .page-item.active .page-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px hsl(36, 80%, 58%);
+}
+
+.pagination-nav .page-item.disabled .page-link {
+    color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.02);
+    border-color: rgba(255, 255, 255, 0.05);
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Special styling for Previous/Next buttons */
+.pagination-nav .page-item:first-child .page-link,
+.pagination-nav .page-item:last-child .page-link {
+    padding: 0 20px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Ellipsis styling */
+.pagination-nav .page-item.disabled:not(:first-child):not(:last-child) .page-link {
+    background: transparent;
+    border-color: transparent;
+    color: rgba(255, 255, 255, 0.3);
+    cursor: default;
+}
+
+    /* Optional: Page info below pagination */
+.pagination-nav .page-info {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+    margin-top: 30px;
+}
+
+.pagination-nav .page-info strong {
+    color: #b8a0ff;
+}
+
+
 

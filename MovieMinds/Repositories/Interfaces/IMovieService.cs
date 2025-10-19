@@ -4,7 +4,7 @@ namespace MovieMinds.Repositories.Interfaces
 {
     public interface IMovieService
     {
-        Task<MovieListResponeDto?> GetDiscoverAsync();
+        Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1);
         Task<MovieListResponeDto?> GetNowPlayingAsync();
         Task<TmdbMovieDto?> GetMovieDetailsAsync(int id);
         Task<MovieReleaseDatesDto?> GetMovieReleaseDatesAsync(int id);

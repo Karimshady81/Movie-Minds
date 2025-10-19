@@ -16,7 +16,7 @@ namespace MovieMinds.Controllers
         [HttpGet("/Discover")]
         public async Task<IActionResult> Discover(int page = 1)
         {
-            var response = await _movies.GetDiscoverAsync();
+            var response = await _movies.GetDiscoverAsync(page);
             if (response == null)
                 return StatusCode(502);
 
@@ -24,7 +24,8 @@ namespace MovieMinds.Controllers
             {
                 Movies = response.Results.AsReadOnly(),
                 Page = page,
-                TotalResults = response.TotalResults
+                TotalResults = response.TotalResults,
+                TotalPages = response.TotalPages
             };
 
             return View(vm);

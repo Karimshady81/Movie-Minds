@@ -111,11 +111,7 @@ home-Img::after {
 }
 
 .movies-grid.view-grid {
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-}
-
-.movies-grid.view-compact {
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
 }
 
 .movie-card {

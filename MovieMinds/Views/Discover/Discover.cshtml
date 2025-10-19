@@ -52,7 +52,7 @@
 
     <!-- Results Count -->
     <div class="results-count">
-        <p>Showing <span>8</span> results</p>
+        <p>Showing <span>20</span> results</p>
     </div>
 
     <!-- Movies Grid -->
@@ -76,8 +76,68 @@
         }
     </div>
 
-    <!-- Load More -->
-    <div class="load-more">
-        <button class="load-more-btn">Load More Movies</button>
-    </div>
+    <!-- Pagination -->
+    <section class="pagination-nav" aria-label="Movie pagination">
+        <ul class="pagination">
+            <!-- Previous Button -->
+            @if (Model.HasPreviousPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Discover?page=@(Model.Page - 1)">← Previous</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">← Previous</span>
+                </li>
+            }
+
+            <!-- First page if not visible -->
+            @if (Model.GetPageNumbers().First() > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Discover?page=1">1</a>
+                </li>
+                @if (Model.GetPageNumbers().First() > 2)
+                {
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                }
+            }
+
+            <!-- Page Numbers -->
+            @foreach (var pageNum in Model.GetPageNumbers())
+            {
+                <li class="page-item @(pageNum == Model.Page ? "active" : "")">
+                    <a class="page-link" href="/Discover?page=@pageNum">@pageNum</a>
+                </li>
+            }
+
+            <!-- Last page if not visible -->
+            @if (Model.GetPageNumbers().Last() < Model.TotalPages)
+            {
+                @if (Model.GetPageNumbers().Last() < Model.TotalPages - 1)
+                {
+                    <li class="page-item disabled"><span class="page-link">...</span></li>
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/Discover?page=@Model.TotalPages">@Model.TotalPages</a>
+                </li>
+            }
+
+            <!-- Next Button -->
+            @if (Model.HasNextPage)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="/Discover?page=@(Model.Page + 1)">Next →</a>
+                </li>
+            }
+            else
+            {
+                <li class="page-item disabled">
+                    <span class="page-link">Next →</span>
+                </li>
+            }
+        </ul>
+    </section>
 </main>
