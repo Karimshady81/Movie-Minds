@@ -13,35 +13,48 @@
             <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <input type="text" class="search-input" placeholder="Search movies..." id="searchInput">
+            <form action="/Discover/Search/Movie" method="get">
+                <input 
+                    type="text" 
+                    name="query"
+                    class="search-input" 
+                    placeholder="Search movies..." 
+                    id="searchInput" 
+                />
+            </form>
         </div>
 
         <div class="filters-row">
             <div class="filters-group">
                 <form method="get" action="/Discover">
                     <select id="genreFilter" name="genre" onchange="this.form.submit()">
-                        <option value="all">All Genres</option>
-                        <option value="action">Action</option>
-                        <option value="drama">Drama</option>
-                        <option value="horror">Horror</option>
-                        <option value="thriller">Thriller</option>
-                        <option value="animation">Animation</option>
-                        <option value="adventure">Adventure</option>
-                        <option value="crime">Crime</option>
-                        <option value="comedy">Comedy</option>
-                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="" selected="@(Model.CurrentGenre == "All")">All Genres</option>
+                        <option value="28" selected="@(Model.CurrentGenre == "28")">Action</option>
+                        <option value="12" selected="@(Model.CurrentGenre == "12")">Adventure</option>
+                        <option value="16" selected="@(Model.CurrentGenre == "16")">Animation</option>
+                        <option value="35" selected="@(Model.CurrentGenre == "35")">Comedy</option>
+                        <option value="80" selected="@(Model.CurrentGenre == "80")">Crime</option>
+                        <option value="99" selected="@(Model.CurrentGenre == "99")">Documentary</option>
+                        <option value="18" selected="@(Model.CurrentGenre == "18")">Drama</option>
+                        <option value="10751" selected="@(Model.CurrentGenre == "10751")">Family</option>
+                        <option value="14" selected="@(Model.CurrentGenre == "14")">Fantasy</option>
+                        <option value="36" selected="@(Model.CurrentGenre == "36")">History</option>
+                        <option value="27" selected="@(Model.CurrentGenre == "27")">Horror</option>
+                        <option value="10402" selected="@(Model.CurrentGenre == "10402")">Music</option>
+                        <option value="9648" selected="@(Model.CurrentGenre == "9648")">Mystery</option>
+                        <option value="878" selected="@(Model.CurrentGenre == "878")">Science Fiction</option>
+                        <option value="10770" selected="@(Model.CurrentGenre == "10770")">TV Movie</option>
+                        <option value="53" selected="@(Model.CurrentGenre == "53")">Thriller</option>
+                        <option value="10752" selected="@(Model.CurrentGenre == "10752")">War</option>
+                        <option value="37" selected="@(Model.CurrentGenre == "37")">Western</option>
                     </select>
 
                     <select id="yearFilter" name="year" onchange="this.form.submit()">
                         <option value="all" selected="@(Model.CurrentYear == "All")">All Years</option>
-                        <option value="2025" selected="@(Model.CurrentYear == "2025")">2025</option>
-                        <option value="2024" selected="@(Model.CurrentYear == "2024")">2024</option>
-                        <option value="2023" selected="@(Model.CurrentYear == "2023")">2023</option>
-                        <option value="2022" selected="@(Model.CurrentYear == "2022")">2022</option>
-                        <option value="2021" selected="@(Model.CurrentYear == "2021")">2021</option>
-                        <option value="2020" selected="@(Model.CurrentYear == "2020")">2020</option>
-                        <option value="2019" selected="@(Model.CurrentYear == "2019")">2019</option>
-                        <option value="2018" selected="@(Model.CurrentYear == "2018")">2018</option>
+                        @for(int year = DateTime.Now.Year; year >= 2000; year--)
+                        {
+                            <option value="@year" selected="@(Model.CurrentYear == year.ToString())">@year</option>
+                        }
                     </select>
 
                     <select id="sortFilter" name="sort" onchange="this.form.submit()">
@@ -57,7 +70,7 @@
 
     <!-- Results Count -->
     <div class="results-count">
-        <p>Showing <span>20</span> results</p>
+        <p>Showing <span>@Model.Movies.Count</span> results</p>
     </div>
 
     <!-- Movies Grid -->
@@ -89,7 +102,7 @@
             {
                 <li class="page-item">
                     <a class="page-link" 
-                        href="/Discover?page=@(Model.Page - 1)&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                        href="/Discover?page=@(Model.Page - 1)&sort=@Model.CurrentSort&year=@Model.CurrentYear&genre=@Model.CurrentGenre">
                         ← Previous
                     </a>
                 </li>
@@ -106,7 +119,7 @@
             {
                 <li class="page-item">
                     <a class="page-link"
-                       href="/Discover?page=1&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                       href="/Discover?page=1&sort=@Model.CurrentSort&year=@Model.CurrentYear&genre=@Model.CurrentGenre">
                         1
                     </a>
                 </li>
@@ -121,7 +134,7 @@
             {
                 <li class="page-item @(pageNum == Model.Page ? "active" : "")">
                     <a class="page-link"
-                       href="/Discover?page=@pageNum&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                       href="/Discover?page=@pageNum&sort=@Model.CurrentSort&year=@Model.CurrentYear&genre=@Model.CurrentGenre">
                         @pageNum
                     </a>
                 </li>
@@ -136,7 +149,7 @@
                 }
                 <li class="page-item">
                     <a class="page-link"
-                       href="/Discover?page=@Model.TotalPages&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                       href="/Discover?page=@Model.TotalPages&sort=@Model.CurrentSort&year=@Model.CurrentYear&genre=@Model.CurrentGenre">
                         @Model.TotalPages
                     </a>
                 </li>
@@ -147,7 +160,7 @@
             {
                 <li class="page-item">
                     <a class="page-link"
-                       href="/Discover?page=@(Model.Page + 1)&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                       href="/Discover?page=@(Model.Page + 1)&sort=@Model.CurrentSort&year=@Model.CurrentYear&genre=@Model.CurrentGenre">
                         Next →
                     </a>
                 </li>

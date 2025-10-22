@@ -13,9 +13,17 @@ namespace MovieMinds.Repositories
             _httpClient = httpClient;
         }
 
-        public async Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1, string sort = "popularity.desc",string year = "")
+        public async Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1, string sort = "popularity.desc", string year = "", string genre = "")
         {
-            var response = await _httpClient.GetAsync($"discover/movie?&vote_average.gte=2&vote_count.gte=10&page={page}&sort_by={sort}&primary_release_year={year}");
+            var response = await _httpClient.GetAsync($"discover/movie?vote_average.gte=2&vote_count.gte=10&page={page}&sort_by={sort}&primary_release_year={year}&with_genres={genre}");
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
+        }
+
+        public async Task<MovieListResponeDto?> GetSearchAsync(string query, int page = 1)
+        {
+            var response = await _httpClient.GetAsync($"search/movie?query={query}&page={page}");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();

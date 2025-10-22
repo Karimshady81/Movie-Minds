@@ -12,9 +12,14 @@ namespace MovieMinds.Repositories
             _tmdb = movieApiClient;
         }
 
-        public Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1, string sort = "popularity.desc", string year = "")
+        public Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1, string sort = "popularity.desc", string year = "", string genre = "")
         {
-            return _tmdb.GetDiscoverAsync(page,sort,year);
+            return _tmdb.GetDiscoverAsync(page,sort,year,genre);
+        }
+
+        public Task<MovieListResponeDto?> GetSearchAsync(string query, int page = 1)
+        {
+            return _tmdb.GetSearchAsync(query,page);
         }
 
         public Task<MovieListResponeDto?> GetNowPlayingAsync()

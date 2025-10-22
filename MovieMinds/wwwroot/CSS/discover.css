@@ -47,8 +47,8 @@
 
 .search-input:focus {
     outline: none;
-    border-color: #f97316;
-    box-shadow: 0 0 0 1px #f97316;
+    border-color: hsl(36, 80%, 58%);
+    box-shadow: 0 0 0 1px hsl(36, 80%, 58%);
 }
 
 .search-input::placeholder {
