@@ -1,12 +1,10 @@
-﻿@using MovieMinds.Models.DTO
-<div class="tabs"
+﻿<div class="tabs"
     <button class=@($"tab {(activeTab == "Cast" ? "active" : "")}") @onclick="@(() => SetTab("Cast"))">Cast</button>
     <button class=@($"tab {(activeTab == "Crew" ? "active" : "")}") @onclick="@(() => SetTab("Crew"))">Crew</button>
     <button class=@($"tab {(activeTab == "Details" ? "active" : "")}") @onclick="@(() => SetTab("Details"))">Details</button>
     <button class=@($"tab {(activeTab == "Genres" ? "active" : "")}") @onclick="@(() => SetTab("Genres"))">Genres</button>
     <button class=@($"tab {(activeTab == "Releases" ? "active" : "")}") @onclick="@(() => SetTab("Releases"))">Releases</button>
 </div>
-
 
 <div class="tab-content">
     @if (activeTab == "Cast")

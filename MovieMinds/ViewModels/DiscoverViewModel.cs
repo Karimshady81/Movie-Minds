@@ -9,6 +9,9 @@ public class DiscoverViewModel
     public int TotalResults { get; init; }
     public int TotalPages { get; set; }
 
+    public string? CurrentSort { get; set; }
+    public string? CurrentGenre { get; set; }
+    public string? CurrentYear { get; set; }
 
     //Helpers
     private static readonly Dictionary<int, string> Genres = new()
@@ -60,7 +63,7 @@ public class DiscoverViewModel
            Poster = string.IsNullOrWhiteSpace(m.PosterPath)
                ? "N/A"
                : $"https://image.tmdb.org/t/p/original/{m.PosterPath}",
-           Year = m.ReleaseDate?.Year.ToString() ?? "—",
+           Year = m.ReleaseDate?.Length >= 4 ? m.ReleaseDate.Substring(0,4) : "N/A",
            VoteAverage = m.VoteAverage?.ToString("0.0") ?? "N/A",
            Genres = m.GenreIds != null && m.GenreIds.Any() ? string.Join(", ",m.GenreIds.Select(id => GetName(id))) : ""
        }).ToList();

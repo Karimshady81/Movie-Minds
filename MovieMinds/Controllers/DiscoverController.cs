@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using MovieMinds.Repositories.Interfaces;
 using MovieMinds.ViewModels;
 
@@ -14,9 +15,9 @@ namespace MovieMinds.Controllers
         }
 
         [HttpGet("/Discover")]
-        public async Task<IActionResult> Discover(int page = 1)
+        public async Task<IActionResult> Discover(int page = 1, string sort = "popularity.desc", string year = "")
         {
-            var response = await _movies.GetDiscoverAsync(page);
+            var response = await _movies.GetDiscoverAsync(page,sort,year);
             if (response == null)
                 return StatusCode(502);
 
@@ -25,7 +26,9 @@ namespace MovieMinds.Controllers
                 Movies = response.Results.AsReadOnly(),
                 Page = page,
                 TotalResults = response.TotalResults,
-                TotalPages = response.TotalPages
+                TotalPages = response.TotalPages,
+                CurrentSort = sort,
+                CurrentYear = year
             };
 
             return View(vm);

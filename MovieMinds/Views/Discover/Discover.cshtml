@@ -18,34 +18,39 @@
 
         <div class="filters-row">
             <div class="filters-group">
-                <select id="genreFilter">
-                    <option value="all">All Genres</option>
-                    <option value="action">Action</option>
-                    <option value="drama">Drama</option>
-                    <option value="horror">Horror</option>
-                    <option value="thriller">Thriller</option>
-                    <option value="animation">Animation</option>
-                    <option value="adventure">Adventure</option>
-                    <option value="crime">Crime</option>
-                    <option value="comedy">Comedy</option>
-                    <option value="sci-fi">Sci-Fi</option>
-                </select>
+                <form method="get" action="/Discover">
+                    <select id="genreFilter" name="genre" onchange="this.form.submit()">
+                        <option value="all">All Genres</option>
+                        <option value="action">Action</option>
+                        <option value="drama">Drama</option>
+                        <option value="horror">Horror</option>
+                        <option value="thriller">Thriller</option>
+                        <option value="animation">Animation</option>
+                        <option value="adventure">Adventure</option>
+                        <option value="crime">Crime</option>
+                        <option value="comedy">Comedy</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                    </select>
 
-                <select id="yearFilter">
-                    <option value="all">All Years</option>
-                    <option value="2025">2025</option>
-                    <option value="2024">2024</option>
-                    <option value="2023">2023</option>
-                    <option value="2022">2022</option>
-                    <option value="2021">2021</option>
-                </select>
+                    <select id="yearFilter" name="year" onchange="this.form.submit()">
+                        <option value="all" selected="@(Model.CurrentYear == "All")">All Years</option>
+                        <option value="2025" selected="@(Model.CurrentYear == "2025")">2025</option>
+                        <option value="2024" selected="@(Model.CurrentYear == "2024")">2024</option>
+                        <option value="2023" selected="@(Model.CurrentYear == "2023")">2023</option>
+                        <option value="2022" selected="@(Model.CurrentYear == "2022")">2022</option>
+                        <option value="2021" selected="@(Model.CurrentYear == "2021")">2021</option>
+                        <option value="2020" selected="@(Model.CurrentYear == "2020")">2020</option>
+                        <option value="2019" selected="@(Model.CurrentYear == "2019")">2019</option>
+                        <option value="2018" selected="@(Model.CurrentYear == "2018")">2018</option>
+                    </select>
 
-                <select id="sortFilter">
-                    <option value="popularity">Popularity</option>
-                    <option value="rating">Rating</option>
-                    <option value="year">Year</option>
-                    <option value="title">Title</option>
-                </select>
+                    <select id="sortFilter" name="sort" onchange="this.form.submit()">
+                        <option value="popularity.desc" selected="@(Model.CurrentSort == "popularity.desc")">Popularity</option>
+                        <option value="vote_average.desc" selected="@(Model.CurrentSort == "vote_average.desc")">Rating</option>
+                        <option value="primary_release_date.desc" selected="@(Model.CurrentSort == "primary_release_date.desc")">Year</option>
+                        <option value="title.asc" selected="@(Model.CurrentSort == "title.asc")">Title (A-Z)</option>
+                    </select>
+                </form>
             </div>
         </div>
     </div>
@@ -83,7 +88,10 @@
             @if (Model.HasPreviousPage)
             {
                 <li class="page-item">
-                    <a class="page-link" href="/Discover?page=@(Model.Page - 1)">← Previous</a>
+                    <a class="page-link" 
+                        href="/Discover?page=@(Model.Page - 1)&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                        ← Previous
+                    </a>
                 </li>
             }
             else
@@ -97,7 +105,10 @@
             @if (Model.GetPageNumbers().First() > 1)
             {
                 <li class="page-item">
-                    <a class="page-link" href="/Discover?page=1">1</a>
+                    <a class="page-link"
+                       href="/Discover?page=1&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                        1
+                    </a>
                 </li>
                 @if (Model.GetPageNumbers().First() > 2)
                 {
@@ -109,7 +120,10 @@
             @foreach (var pageNum in Model.GetPageNumbers())
             {
                 <li class="page-item @(pageNum == Model.Page ? "active" : "")">
-                    <a class="page-link" href="/Discover?page=@pageNum">@pageNum</a>
+                    <a class="page-link"
+                       href="/Discover?page=@pageNum&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                        @pageNum
+                    </a>
                 </li>
             }
 
@@ -121,7 +135,10 @@
                     <li class="page-item disabled"><span class="page-link">...</span></li>
                 }
                 <li class="page-item">
-                    <a class="page-link" href="/Discover?page=@Model.TotalPages">@Model.TotalPages</a>
+                    <a class="page-link"
+                       href="/Discover?page=@Model.TotalPages&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                        @Model.TotalPages
+                    </a>
                 </li>
             }
 
@@ -129,7 +146,10 @@
             @if (Model.HasNextPage)
             {
                 <li class="page-item">
-                    <a class="page-link" href="/Discover?page=@(Model.Page + 1)">Next →</a>
+                    <a class="page-link"
+                       href="/Discover?page=@(Model.Page + 1)&sort=@Model.CurrentSort&year=@Model.CurrentYear">
+                        Next →
+                    </a>
                 </li>
             }
             else

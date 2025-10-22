@@ -13,9 +13,9 @@ namespace MovieMinds.Repositories
             _httpClient = httpClient;
         }
 
-        public async Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1)
+        public async Task<MovieListResponeDto?> GetDiscoverAsync(int page = 1, string sort = "popularity.desc",string year = "")
         {
-            var response = await _httpClient.GetAsync($"discover/movie?page={page}");
+            var response = await _httpClient.GetAsync($"discover/movie?&vote_average.gte=2&vote_count.gte=10&page={page}&sort_by={sort}&primary_release_year={year}");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
@@ -31,7 +31,7 @@ namespace MovieMinds.Repositories
 
         public async Task<TmdbMovieDto?> GetMovieByIdAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"movie/{id}?language=en-US");
+            var response = await _httpClient.GetAsync($"movie/{id}");
             response.EnsureSuccessStatusCode();
 
             return await response.Content.ReadFromJsonAsync<TmdbMovieDto>();
@@ -47,7 +47,7 @@ namespace MovieMinds.Repositories
 
         public async Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"movie/{id}/credits?language=en-US");
+            var response = await _httpClient.GetAsync($"movie/{id}/credits");
             response.EnsureSuccessStatusCode();
 
             var castCreditsResponse = await response.Content.ReadFromJsonAsync<MovieCreditsDto>();
@@ -56,7 +56,7 @@ namespace MovieMinds.Repositories
 
         public async Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id)
         {
-            var response = await _httpClient.GetAsync($"movie/{id}/credits?language=en-US");
+            var response = await _httpClient.GetAsync($"movie/{id}/credits");
             response.EnsureSuccessStatusCode();
 
             var crewCreditsResponse = await response.Content.ReadFromJsonAsync<MovieCreditsDto>();
