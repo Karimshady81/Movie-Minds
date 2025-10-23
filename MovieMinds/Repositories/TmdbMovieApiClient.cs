@@ -45,6 +45,14 @@ namespace MovieMinds.Repositories
             return await response.Content.ReadFromJsonAsync<TmdbMovieDto>();
         }
 
+        public async Task<MovieListResponeDto?> GetMovieRecommendationsAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"movie/{id}/recommendations");
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<MovieListResponeDto>();
+        }
+
         public async Task<MovieReleaseDatesDto?> GetMovieReleaseDates(int id)
         {
             var respone = await _httpClient.GetAsync($"movie/{id}/release_dates");

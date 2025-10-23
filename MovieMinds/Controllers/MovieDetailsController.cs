@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MovieMinds.Models.DTO;
 using MovieMinds.Repositories.Interfaces;
 using MovieMinds.ViewModels;
 
@@ -26,6 +27,7 @@ namespace MovieMinds.Controllers
                 var crew = await _movies.GetMovieCrewAsync(id);
                 var releaseDates = await _movies.GetMovieReleaseDatesAsync(id);
                 var countryName = await _movies.GetCountryNamesAsync();
+                var recommendations = await _movies.GetMovieRecommendationsAsync(id);
 
                 var viewModel = new MovieDetailsViewModel
                 {
@@ -33,7 +35,8 @@ namespace MovieMinds.Controllers
                     Crew = crew,
                     Cast = cast,
                     ReleaseDates = releaseDates,
-                    CountryName = countryName
+                    CountryName = countryName,
+                    MovieRecommendations = recommendations!.Results
                 };
 
                 return View(viewModel);

@@ -8,6 +8,7 @@ namespace MovieMinds.Repositories.Interfaces
         Task<MovieListResponeDto?> GetSearchAsync(string query, int page = 1);
         Task<MovieListResponeDto?> GetNowPlayingAsync(int page = 1);
         Task<TmdbMovieDto?> GetMovieByIdAsync (int id);
+        Task<MovieListResponeDto?> GetMovieRecommendationsAsync (int id);
         Task<MovieReleaseDatesDto?> GetMovieReleaseDates(int id);
         Task<List<CountryNamesDto>?> GetCountriesName();
         Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id);

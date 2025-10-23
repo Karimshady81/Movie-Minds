@@ -1,9 +1,18 @@
 ﻿@model MovieDetailsViewModel 
 
 @* back-drop section *@
-<div class="hero">
-    <img src="https://image.tmdb.org/t/p/original/@Model.Movie.BackdropPath" alt="@Model.Movie.Title Backdrop image"/>
-</div>
+@if(Model.Movie.BackdropPath is null)
+{
+    <div class="no-hero">
+
+    </div>
+}
+else
+{
+    <div class="hero">
+        <img src="https://image.tmdb.org/t/p/original/@Model.Movie.BackdropPath" alt="@Model.Movie.Title Backdrop image"/>
+    </div>
+}
 
 @* film-details section *@
 <div class="container">
@@ -129,4 +138,24 @@
             </div>
         </main>
     </div>
+    <main>
+        <h2 class="section-title">You might also like</h2>
+        <div class="movies-recommendation-grid view-recommendation-grid">
+            @foreach (var recommendation in Model.RecommendationCards)
+            {
+                <div class="movie-card">
+                    <a class="movie-Details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@recommendation.Id">
+                        <div class="movie-poster">
+                            <img src="@recommendation.Poster" alt="@recommendation.Title">
+                            <div class="movie-overlay"></div>
+                            <div class="movie-info">
+                                <div class="movie-year">@recommendation.Year</div>
+                            </div>
+                        </div>
+                    </a>
+                    <h3 class="movie-title serif">@recommendation.Title</h3>
+                </div>
+            }
+        </div>
+    </main>
 </div>

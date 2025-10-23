@@ -32,6 +32,11 @@ namespace MovieMinds.Repositories
             return _tmdb.GetMovieByIdAsync(id);
         }
 
+        public Task<MovieListResponeDto?> GetMovieRecommendationsAsync(int id)
+        {
+            return _tmdb.GetMovieRecommendationsAsync(id);
+        }
+
         public Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id)
         {
             return _tmdb.GetMovieCrewAsync(id);

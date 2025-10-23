@@ -5,17 +5,17 @@ namespace MovieMinds.ViewModels
     public class MovieDetailsViewModel
     {
         public TmdbMovieDto Movie { get; set; } = default!;
+        public IReadOnlyList<TmdbMovieDto> MovieRecommendations { get; set; } = Array.Empty<TmdbMovieDto>();
         public MovieReleaseDatesDto? ReleaseDates { get; set; }
         public List<CountryNamesDto>? CountryName { get; set; }
         public IReadOnlyList<CrewMemberDto>? Crew { get; set; }
         public IReadOnlyList<CastMemberDto>? Cast { get; set; }
 
-
         //Helpers
         public CrewMemberDto? Director => Crew?.FirstOrDefault(c => c.Job == "Director");
 
         //Fallbacks
-        public string DisplayYear => DateTime.TryParse(Movie!.ReleaseDate.ToString(), out var d) ? d.Year.ToString() : "-";
+        public string DisplayYear => DateTime.TryParse(Movie.ReleaseDate?.ToString(), out var d) ? d.Year.ToString() : "-";
 
         public string DisplayRunTime => Movie!.RunTime > 0 ? $"{Movie.RunTime} mins" : "TBD";
 
@@ -24,5 +24,17 @@ namespace MovieMinds.ViewModels
         public string DisplayTagLine => string.IsNullOrWhiteSpace(Movie.TagLine) ? "N/A" : Movie.TagLine;
 
         public string DisplayOverview => string.IsNullOrWhiteSpace(Movie.Overview) ? "N/A" : Movie.Overview;
+
+        //Recommendation Card
+        public IReadOnlyList<MovieCardVm> RecommendationCards =>
+           MovieRecommendations.Select(m => new MovieCardVm
+           {
+               Id = m.Id,
+               Title = m.Title ?? "",
+               Poster = string.IsNullOrWhiteSpace(m.PosterPath)
+                   ? "N/A"
+                   : $"https://image.tmdb.org/t/p/original/{m.PosterPath}",
+               Year = m.ReleaseDate?.Length >= 4 ? m.ReleaseDate.Substring(0, 4) : "N/A",
+           }).Take(5).ToList();
     }
 }
