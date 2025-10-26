@@ -3,16 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MovieMinds.Models.Entites
 {
-    public class User 
+    public class User : IdentityUser
     {
         //Essential Properties
-        public int Id { get; set; }
-        public string UserName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
         public string? DisplayName { get; set; }
 
         public ICollection<UserMovie> UserMovie { get; set; } = new List<UserMovie>();
+        // ↑ This is a navigation property - it creates a relationship in the database
+        // It means "a user can have many UserMovie records"
 
 
         //These are additional properties
@@ -23,7 +21,7 @@ namespace MovieMinds.Models.Entites
         //public string? Bio { get; set; }
 
         //public string? ProfilePictureUrl { get; set; }
-        //public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
         //public DateTime? LastActiveAt { get; set; }
 
 

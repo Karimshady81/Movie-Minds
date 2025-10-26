@@ -1,0 +1,51 @@
+### Variables
+@baseUrl = http://localhost:5237
+@token = 
+
+###
+# Register a new user
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "dan@email.com",
+  "username": "dan123",
+  "displayName": "dan Doe",
+  "password": "1Q2w3e4r5t@",
+  "confirmPassword": "1Q2w3e4r5t@"
+}
+
+###
+# Login with email
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "emailOrUsername": "dan@email.com",
+  "password": "1Q2w3e4r5t@",
+  "rememberMe": false
+}
+
+###
+# Login with username
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "emailOrUsername": "dan123",
+  "password": "1Q2w3e4r5t@",
+  "rememberMe": false
+}
+
+###
+### Register with invalid email
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "email": "notanemail",
+  "username": "test123",
+  "displayName": "Test User",
+  "password": "Pass123",
+  "confirmPassword": "Pass123"
+}
