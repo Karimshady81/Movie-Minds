@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -52,32 +53,40 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
     options.User.RequireUniqueEmail = true;
     options.SignIn.RequireConfirmedEmail = false;
 })
-    .AddEntityFrameworkStores<MovieMindsDbContext>()
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<MovieMindsDbContext>();
+
+//This is cookie-based as we are using MVC with views
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie();
+
+
+//This was for testing purposes only - commenting out for now
 
 // JWT Authentication Configuration
-var jwtSecret = builder.Configuration["Jwt:Secret"] ?? 
-                        throw new InvalidOperationException("JWT Secret is missing");
+//var jwtSecret = builder.Configuration["Jwt:Secret"] ?? 
+//                        throw new InvalidOperationException("JWT Secret is missing");
 
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true, // Check token was created by us
-            ValidateAudience = true, // Check token is for our users
-            ValidateLifetime = true, // Check token hasn't expired
-            ValidateIssuerSigningKey = true, // Check signature is valid
-            ValidIssuer = builder.Configuration["Jwt:Issuer"],
-            ValidAudience = builder.Configuration["Jwt:Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(jwtSecret))
-        };
-    });
+//builder.Services.AddAuthentication(options =>
+//{
+//    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+//    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+//})
+//    .AddJwtBearer(options =>
+//    {
+//        options.TokenValidationParameters = new TokenValidationParameters
+//        {
+//            ValidateIssuer = true, // Check token was created by us
+//            ValidateAudience = true, // Check token is for our users
+//            ValidateLifetime = true, // Check token hasn't expired
+//            ValidateIssuerSigningKey = true, // Check signature is valid
+//            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+//            ValidAudience = builder.Configuration["Jwt:Audience"],
+//            IssuerSigningKey = new SymmetricSecurityKey(
+//            Encoding.UTF8.GetBytes(jwtSecret))
+//        };
+//    });
 
 var tmdbBase = builder.Configuration["Tmdb:BaseUrl"];
 var tmdbToken = builder.Configuration["Tmdb:Token"] ?? 

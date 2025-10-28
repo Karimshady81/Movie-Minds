@@ -1,0 +1,17 @@
+﻿<div>
+    <div>
+        <form asp-action="Login">
+            <div>
+                <div asp-validation-summary="All" class="error-Message"></div>
+                <span class="close-Sign-In">&times;</span>
+                <label for="username" class="name-label">Username</label>
+                <input type="text" class="sign-In-Input" id="signInUsername" name="EmailOrUsername" required>
+
+                <label for="password" class="password-label">Password</label>
+                <input type="password" class="sign-In-Input" id="signInPassword" name="Password" required>
+
+                <button type="submit" class="submit-Btn">Sign In</button>
+            </div>
+        </form>
+    </div>
+</div>

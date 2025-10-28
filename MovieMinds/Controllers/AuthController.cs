@@ -84,11 +84,11 @@ namespace MovieMinds.Controllers
                     Message = "Invalid login data."
                 });
             }
-            
+
             // Find user by email or username
             var user = await _userManager.FindByEmailAsync(model.EmailOrUsername) ??
                        await _userManager.FindByNameAsync(model.EmailOrUsername);
-            
+
             if (user == null)
             {
                 return Unauthorized(new AuthResponseDto
@@ -98,7 +98,7 @@ namespace MovieMinds.Controllers
                 });
             }
 
-            var result = await _signInManager.CheckPasswordSignInAsync(user,model.Password, false);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
 
             if (!result.Succeeded)
             {

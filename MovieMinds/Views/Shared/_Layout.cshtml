@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@inject UserManager<User> UserManager
+@{
+    var currentUser = await UserManager.GetUserAsync(User);
+}
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -23,40 +28,17 @@
         <ul class="new-Links" id="navSection">
             <li><a href="/">Home</a></li>
             <li><a asp-controller="Discover" asp-action="Discover">Films</a></li>
-            <li class="">Sign In</li>
-            
-            <!-- User dropdown (when logged in) - hidden by default -->
-            <li class="dropdown-Container" style="display: none;">
-                <span style="color: hsl(32, 46%, 57%);">Username</span>
-                <i class="fa-solid fa-angle-down fa"></i>
-                <!-- Dropdown content -->
-                <div class="dropdown-Content">
-                    <a href="/profile">Profile</a>
-                    <a href="/edit-Profile">Edit Profile</a>
-                    <a id="logOutBtn">Logout</a>
-                </div>
-            </li>
+            @if(User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                <li>@(currentUser?.DisplayName ?? @User.Identity.Name)</li>
+            }
+            else
+            {
+                <li><a asp-controller="Account" asp-action="Register">Register</a></li>
+                <li><a asp-controller="Account" asp-action="Login">Login</a></li>
+            }
         </ul>
-        
-        <!-- The Sign-In Section (This section is hidden until the user clicks on Sign In button)-->
-        <div id="signIn" class="sign-In">
-            <div class="sign-In-Container">
-                <form action="/signin" method="POST" class="sign-In-Form" id="signIpForm">
-                    <div class="error-Message" style="display: none;"></div>
-                    <div>
-                        <span class="close-Sign-In">&times;</span>
-                        <label for="username" class="name-label">Username</label>
-                        <input type="text" class="sign-In-Input" id="signInUsername" name="username" required>
-
-                        <label for="password" class="password-label">Password</label>
-                        <input type="password" class="sign-In-Input" id="signInPassword" name="password" required> 
-
-                        <button type="submit" class="submit-Btn">Sign In</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        
+                
         <!-- Search bar section -->
         <form id="searchForm" action="/Discover/Search/Movie">
             <div class="search-Bar">
