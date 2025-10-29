@@ -14,8 +14,9 @@
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/movieDetails.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/discover.css" asp-append-version="true"/>
-    <link rel="stylesheet" href="~/css/nav.css"/>
-    <link rel="stylesheet" href="~/css/footer.css"/>
+    <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/footer.css" asp-append-version="true" />
     <base href="~/" />
 </head>
 <body>
@@ -30,7 +31,13 @@
             <li><a asp-controller="Discover" asp-action="Discover">Films</a></li>
             @if(User.Identity != null && User.Identity.IsAuthenticated)
             {
-                <li>@(currentUser?.DisplayName ?? @User.Identity.Name)</li>
+                <li>
+                    <span>@(currentUser?.DisplayName ?? @User.Identity.Name)</span>
+                    
+                    <div>
+                        <a asp-controller="Account" asp-action="Logout"></a>
+                    </div>
+                </li>
             }
             else
             {

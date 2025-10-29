@@ -23,9 +23,9 @@
     transition: color 0.3s ease;
 }
 
-    .social-icon:hover {
-        color: hsl(40, 70%, 50%); /* Highlight color on hover */
-    }
+.social-icon:hover {
+    color: hsl(40, 70%, 50%); /* Highlight color on hover */
+}
 
 footer p {
     margin: 10px 0;

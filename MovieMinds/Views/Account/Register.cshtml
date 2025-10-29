@@ -1,16 +1,52 @@
-﻿<div >
-    <div >
-        <form asp-action="Register" >
-            <div class="error-Message"></div>
+﻿@model MovieMinds.Models.DTO.RegisterDto
+
+<div class="form-container">
+    <div class="form-width">
+        <form asp-action="Register" method="post">
             <div>
-                <span class="close-Sign-In">&times;</span>
-                <label for="username" class="name-label">Username</label>
-                <input type="text" class="sign-In-Input" id="signInUsername" name="username" required>
+                <!-- Email Field -->
+                <div>
+                    <label for="email" class="name-Label">Email</label>
+                    <span asp-validation-for="Email" class="error-Message"></span>
+                    <input type="email" class="sign-In-Input" id="registerEmail" name="email" placeholder="Enter your email" required autofocus>
+                </div>
 
-                <label for="password" class="password-label">Password</label>
-                <input type="password" class="sign-In-Input" id="signInPassword" name="password" required>
+                <!-- Username Field -->
+                <div>
+                    <label for="username" class="name-Label">Username</label>
+                    <span asp-validation-for="UserName" class="error-Message"></span>
+                    <input type="text" class="sign-In-Input" id="registerUsername" name="username" placeholder="Choose a username" required>
+                </div>
 
-                <button type="submit" class="submit-Btn">Sign In</button>
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="password-Label">Password</label>
+                    <span asp-validation-for="Password" class="error-Message"></span>
+                    <input type="password" class="sign-In-Input" id="registerPassword" name="password" placeholder="Create a password" required>
+                </div>
+
+                <!-- Confirm Password Field -->
+                <div>
+                    <label for="confirmPassword" class="password-Label">Confirm Password</label>
+                    <span asp-validation-for="ConfirmPassword" class="error-Message"></span>
+                    <input type="password" class="sign-In-Input" id="registerConfirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
+                </div>
+
+                <!-- Terms and Conditions Checkbox -->
+                <div class="checkbox-container">
+                    <input type="checkbox" id="agreeToTerms" name="agreeToTerms" required>
+                    <label for="agreeToTerms" class="checkbox-label">
+                        I agree to the <a class="terms-link">Terms of Service</a> and <a class="privacy-link">Privacy Policy</a>
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-Btn">Create Account</button>
+
+                <!-- Already have account link -->
+                <div class="form-footer">
+                    <p>Already have an account? <a href="/Account/Login" class="login-link">Sign In</a></p>
+                </div>
             </div>
         </form>
     </div>

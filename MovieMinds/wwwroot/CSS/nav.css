@@ -20,7 +20,7 @@ nav img {
     object-fit: contain;
 }
 
-ul {
+.new-Links {
     display: flex;
     flex-direction: row;
 }

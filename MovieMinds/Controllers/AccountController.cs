@@ -57,7 +57,7 @@ namespace MovieMinds.Controllers
                 else
                 {
                     //Password incorrect
-                    ModelState.AddModelError(string.Empty, "Invalid credentials. Please try again.");
+                    ModelState.AddModelError("Password", "Invalid credentials. Please try again.");
                     return View(model);
                 }
                 return View(model);

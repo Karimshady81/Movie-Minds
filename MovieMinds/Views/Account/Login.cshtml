@@ -1,16 +1,31 @@
-﻿<div>
-    <div>
-        <form asp-action="Login">
+﻿@model MovieMinds.Models.DTO.LoginDto
+
+<div class="form-container">
+    <div class="form-width">
+        <form asp-action="Login" method="post">
             <div>
-                <div asp-validation-summary="All" class="error-Message"></div>
-                <span class="close-Sign-In">&times;</span>
-                <label for="username" class="name-label">Username</label>
-                <input type="text" class="sign-In-Input" id="signInUsername" name="EmailOrUsername" required>
+                <!-- Email/Username Field -->
+                <div>
+                    <label for="EmailOrUsername" class="name-Label">Email</label>
+                    <span asp-validation-for="EmailOrUsername" class="error-Message"></span>
+                    <input type="text" class="sign-In-Input" id="registerEmail" name="EmailOrUsername" placeholder="Enter your credentials" required autofocus>
+                </div>
 
-                <label for="password" class="password-label">Password</label>
-                <input type="password" class="sign-In-Input" id="signInPassword" name="Password" required>
+                <!-- Password Field -->
+                <div>
+                    <label for="password" class="password-Label">Password</label>
+                    <span asp-validation-for="Password" class="error-Message"></span>
+                    <input type="password" class="sign-In-Input" id="registerPassword" name="password" placeholder="Create a password" required>
+                </div>
 
-                <button type="submit" class="submit-Btn">Sign In</button>
+                <!-- Terms and Conditions Checkbox -->
+                <div class="checkbox-container">
+                    <input type="checkbox" id="RememberMe" name="RememberMe">
+                    <label asp-for="RememberMe" for="RememberMe" class="checkbox-label">Remember Me</label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="submit-Btn">Sign in</button>
             </div>
         </form>
     </div>
