@@ -80,7 +80,7 @@ namespace MovieMinds.Controllers
 
             if (user != null)
             {
-                ModelState.AddModelError(string.Empty, "User with this email or username already exists.");
+                ModelState.AddModelError(nameof(RegisterDto.Email), "User with this email or username already exists.");
                 return View(model);
             }
 

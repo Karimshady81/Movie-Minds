@@ -1,4 +1,4 @@
-﻿@model MovieMinds.Models.DTO.RegisterDto
+﻿@model RegisterDto
 
 <div class="form-container">
     <div class="form-width">
@@ -6,28 +6,35 @@
             <div>
                 <!-- Email Field -->
                 <div>
-                    <label for="email" class="name-Label">Email</label>
+                    <label asp-for="Email" class="name-Label">Email</label>
                     <span asp-validation-for="Email" class="error-Message"></span>
                     <input type="email" class="sign-In-Input" id="registerEmail" name="email" placeholder="Enter your email" required autofocus>
                 </div>
 
                 <!-- Username Field -->
                 <div>
-                    <label for="username" class="name-Label">Username</label>
+                    <label asp-for="UserName" class="name-Label">Username</label>
                     <span asp-validation-for="UserName" class="error-Message"></span>
                     <input type="text" class="sign-In-Input" id="registerUsername" name="username" placeholder="Choose a username" required>
                 </div>
 
+                <!-- Display Name Field -->
+                <div>
+                    <label asp-for="DisplayName" class="name-Label">Display Name</label>
+                    <span asp-validation-for="DisplayName" class="error-Message"></span>
+                    <input type="text" class="sign-In-Input" id="registerDisplayname" name="displayname" placeholder="Choose a display name" required>
+                </div>
+
                 <!-- Password Field -->
                 <div>
-                    <label for="password" class="password-Label">Password</label>
+                    <label asp-for="Password" class="password-Label">Password</label>
                     <span asp-validation-for="Password" class="error-Message"></span>
                     <input type="password" class="sign-In-Input" id="registerPassword" name="password" placeholder="Create a password" required>
                 </div>
 
                 <!-- Confirm Password Field -->
                 <div>
-                    <label for="confirmPassword" class="password-Label">Confirm Password</label>
+                    <label asp-for="ConfirmPassword" class="password-Label">Confirm Password</label>
                     <span asp-validation-for="ConfirmPassword" class="error-Message"></span>
                     <input type="password" class="sign-In-Input" id="registerConfirmPassword" name="confirmPassword" placeholder="Re-enter your password" required>
                 </div>
@@ -51,3 +58,4 @@
         </form>
     </div>
 </div>
+
