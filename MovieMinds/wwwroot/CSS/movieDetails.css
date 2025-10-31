@@ -707,3 +707,13 @@ p .text-slug {
 .score-value {
     animation: pulse 3s ease-in-out infinite;
 }
+
+/* Not logged styles*/
+.deny-action {
+    background: #2c3440;
+    border-radius: 6px;
+    padding: 10px;
+    text-align: center;
+    transition: background 0.3s;
+    cursor: default;
+}

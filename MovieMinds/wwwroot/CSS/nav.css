@@ -166,12 +166,12 @@ nav img {
     border-radius: 20px;
 }
 
-    .search-Bar input {
-        border: none;
-        padding: 10px;
-        border-radius: 20px;
-        outline: none;
-    }
+.search-Bar input {
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    outline: none;
+}
 
 /* Remove blue background on autocomplete */
 input:-webkit-autofill,
@@ -201,3 +201,86 @@ button img {
     height: 20px;
 }
 
+
+/* DROPDOWN MENU */
+.dropdown-Container {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-trigger {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.dropdown-trigger span {
+    color: hsl(208, 11%, 46%);
+}
+
+.dropdown-Container:hover .dropdown-trigger span {
+    color: hsl(208, 11%, 26%);
+}
+
+.dropdown-Content {
+    display: none;
+    position: absolute;
+    background-color: #14181c;
+    min-width: 180px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 8px;
+    right: -155px;
+    top: 100%;
+    /* Add transition for smooth appearance/disappearance */
+    opacity: 0;
+    transition: opacity 0.2s ease, visibility 0s linear 0.3s;
+    visibility: hidden;
+}
+
+.dropdown-Content a {
+    color: hsl(208, 11%, 46%);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 1.2rem;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-Content a:hover {
+    background-color: hsl(208, 11%, 95%);
+    color: hsl(208, 11%, 26%);
+}
+
+.dropdown-Content a:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.dropdown-Content a:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+/* Show dropdown on hover with delay before closing */
+.dropdown-Container:hover .dropdown-Content {
+    display: block;
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.2s ease;
+}
+
+/* Add invisible padding area to make hover easier */
+.dropdown-Container::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    height: 10px; /* Invisible bridge between trigger and menu */
+    z-index: 999;
+}
+
+.fa-caret-down {
+    margin-left: 5px;
+    font-size: 1rem;
+    color: hsl(208, 11%, 46%);
+}

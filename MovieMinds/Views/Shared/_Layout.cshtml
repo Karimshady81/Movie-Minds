@@ -31,11 +31,15 @@
             <li><a asp-controller="Discover" asp-action="Discover">Films</a></li>
             @if(User.Identity != null && User.Identity.IsAuthenticated)
             {
-                <li>
-                    <span>@(currentUser?.DisplayName ?? @User.Identity.Name)</span>
-                    
-                    <div>
-                        <a asp-controller="Account" asp-action="Logout"></a>
+                <li class="dropdown-Container">
+                    <div class="dropdown-trigger">
+                        <span>@(currentUser?.DisplayName ?? @User.Identity.Name)</span>
+                        <i class="fa fa-caret-down"></i>
+                    </div>
+
+                    <div class="dropdown-Content">
+                        <a >Profile</a>
+                        <a asp-controller="Account" asp-action="Logout">Logout</a>
                     </div>
                 </li>
             }

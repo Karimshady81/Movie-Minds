@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using MovieMinds.Models.DTO;
 using MovieMinds.Models.Entites;
@@ -20,12 +21,22 @@ namespace MovieMinds.Controllers
 
         public IActionResult Login()
         {
+            if (User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var response = new LoginDto();
             return View(response);
         }
 
         public IActionResult Register()
         {
+            if (User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             var response = new RegisterDto();
             return View(response);
         }
@@ -33,6 +44,11 @@ namespace MovieMinds.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto model)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -43,33 +59,38 @@ namespace MovieMinds.Controllers
 
             if (user != null)
             {
-                //User is found, check password
-                var passwordCheck = await _userManager.CheckPasswordAsync(user, model.Password);
-                if (passwordCheck)
+                //Checks the Users entered credentials
+                var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: true);
+
+                if (result.Succeeded)
                 {
-                    //Password correct, sign in
-                    var result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: default);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Index", "Home");
-                    }
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (result.IsLockedOut)
+                {
+                    ModelState.AddModelError(nameof(LoginDto.LockOut), "Account locked due to multiple failed attempts. Try again later.");
+                    return View(model);
                 }
                 else
                 {
                     //Password incorrect
-                    ModelState.AddModelError("Password", "Invalid credentials. Please try again.");
+                    ModelState.AddModelError(nameof(LoginDto.Password), "Invalid credentials. Please try again.");
                     return View(model);
                 }
-                return View(model);
             }
             //User not found
-            ModelState.AddModelError(string.Empty, "Invalid credentials. Please try again.");
+            ModelState.AddModelError(nameof(LoginDto.EmailOrUsername), "Invalid credentials. Please try again.");
             return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto model)
         {
+            if (User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);

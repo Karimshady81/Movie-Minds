@@ -39,11 +39,11 @@ builder.Services.AddDbContext<MovieMindsDbContext>(options =>
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     // Password settings
-    options.Password.RequireDigit = false;
-    options.Password.RequireLowercase = false;
-    options.Password.RequireUppercase = false;
-    options.Password.RequireNonAlphanumeric = false;
-    options.Password.RequiredLength = 6;
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequiredLength = 8;
 
     // Lockout settings
     options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
@@ -55,11 +55,20 @@ builder.Services.AddIdentity<User, IdentityRole>(options =>
 })
     .AddEntityFrameworkStores<MovieMindsDbContext>();
 
+//Cookie Configuration for "Remember Me"
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.Cookie.HttpOnly = true;
+    options.ExpireTimeSpan = TimeSpan.FromDays(14); // Cookie expires after 14 days when RememberMe = true
+    options.SlidingExpiration = true; // Cookie lifetime is extended on each request
+    options.LoginPath = "/Account/Login"; // Redirect here when not authenticated
+    options.LogoutPath = "/Account/Logout";
+    options.AccessDeniedPath = "/Account/AccessDenied";
+});
+
 //This is cookie-based as we are using MVC with views
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie();
 
 
 //This was for testing purposes only - commenting out for now

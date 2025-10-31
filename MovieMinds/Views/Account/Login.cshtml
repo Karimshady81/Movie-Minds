@@ -4,24 +4,27 @@
     <div class="form-width">
         <form asp-action="Login" method="post">
             <div>
+                <div>
+                    <span asp-validation-for="LockOut" class="error-Message"></span>
+                </div>
                 <!-- Email/Username Field -->
                 <div>
-                    <label for="EmailOrUsername" class="name-Label">Email</label>
+                    <label asp-for="EmailOrUsername" class="name-Label">Email</label>
                     <span asp-validation-for="EmailOrUsername" class="error-Message"></span>
                     <input type="text" class="sign-In-Input" id="registerEmail" name="EmailOrUsername" placeholder="Enter your credentials" required autofocus>
                 </div>
 
                 <!-- Password Field -->
                 <div>
-                    <label for="password" class="password-Label">Password</label>
+                    <label asp-for="Password" class="password-Label">Password</label>
                     <span asp-validation-for="Password" class="error-Message"></span>
                     <input type="password" class="sign-In-Input" id="registerPassword" name="password" placeholder="Create a password" required>
                 </div>
 
                 <!-- Terms and Conditions Checkbox -->
                 <div class="checkbox-container">
-                    <input type="checkbox" id="RememberMe" name="RememberMe">
-                    <label asp-for="RememberMe" for="RememberMe" class="checkbox-label">Remember Me</label>
+                    <input type="checkbox" asp-for="RememberMe" id="RememberMe" name="RememberMe">
+                    <label for="RememberMe" class="checkbox-label">Remember Me</label>
                 </div>
 
                 <!-- Submit Button -->
