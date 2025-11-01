@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="~/images/favicon.ico" type="image/x-icon"/>
     <link rel="stylesheet" href="~/css/home.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/movieDetails.css" asp-append-version="true"/>
+    <link rel="stylesheet" href="~/css/profile.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/discover.css" asp-append-version="true"/>
     <link rel="stylesheet" href="~/css/nav.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/register.css" asp-append-version="true" />
@@ -38,7 +39,7 @@
                     </div>
 
                     <div class="dropdown-Content">
-                        <a >Profile</a>
+                        <a asp-controller="Account" asp-action="Profile">Profile</a>
                         <a asp-controller="Account" asp-action="Logout">Logout</a>
                     </div>
                 </li>

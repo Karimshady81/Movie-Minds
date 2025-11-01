@@ -1,0 +1,59 @@
+﻿@inject UserManager<User> UserManager
+@{
+    var currentUser = await UserManager.GetUserAsync(User);
+}
+
+<div class="profile-container">
+    <div class="profile-header">
+        <div class="avatar">👤</div>
+        <h1 class="username">@currentUser?.DisplayName</h1>
+        <div class="user-stats">
+            <span>📍 @(currentUser?.Location ?? " ")</span>
+            <span>✉️ @(currentUser?.Bio ?? " ")</span>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">Recent Likes</h2>
+            <a href="#" class="view-all">ALL</a>
+        </div>
+        <div>            
+            @if (currentUser?.UserMovie.Any(ul => ul.Liked) == true)
+            {
+                foreach(var likedMovie in currentUser.UserMovie.Where(ul => ul.Liked))
+                {
+                    <div class="full-state">
+                        <p>@likedMovie.Movie.Title</p>
+                    </div>
+                }
+            }
+            else
+            {
+            <div class="empty-state">
+                No liked movies yet
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">Watchlist</h2>
+            <a href="#" class="view-all">ALL</a>
+        </div>
+        <div class="empty-state">
+            No movies added to watchlist
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="section-header">
+            <h2 class="section-title">Reviews</h2>
+            <a href="#" class="view-all">ALL</a>
+        </div>
+        <div class="empty-state">
+            No movies added to watchlist
+        </div>
+    </div>
+</div>

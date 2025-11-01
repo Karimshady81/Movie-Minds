@@ -7,12 +7,15 @@ using MovieMinds.Data;
 using MovieMinds.Models.Entites;
 using MovieMinds.Repositories;
 using MovieMinds.Repositories.Interfaces;
+using MovieMinds.Services;
+using MovieMinds.Services.Interfaces;
 using System.Net.Http.Headers;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IUserMovieService, UserMovieService>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddServerSideBlazor(options =>
@@ -35,7 +38,6 @@ builder.Services.AddDbContext<MovieMindsDbContext>(options =>
 });
 
 // Identity Configuration
-
 builder.Services.AddIdentity<User, IdentityRole>(options =>
 {
     // Password settings

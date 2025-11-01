@@ -17,17 +17,14 @@ namespace MovieMinds.Models.Entites
         //public string FirstName { get; set; } = string.Empty;
         //public string LastName { get; set; } = string.Empty;
 
-        //[StringLength(500)]
-        //public string? Bio { get; set; }
-
-        //public string? ProfilePictureUrl { get; set; }
+        [StringLength(500)]
+        public string? Bio { get; set; }
+        public string? ProfilePictureUrl { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        //public DateTime? LastActiveAt { get; set; }
-
 
         ////Location/Country
-        //[StringLength(100)]
-        //public string? Location { get; set; }
+        [StringLength(100)]
+        public string? Location { get; set; }
 
     }
 }

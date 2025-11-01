@@ -41,6 +41,17 @@ namespace MovieMinds.Controllers
             return View(response);
         }
 
+        public IActionResult Profile()
+        {
+            if(!User.Identity!.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var response = new User();
+            return View(response);
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto model)
         {
