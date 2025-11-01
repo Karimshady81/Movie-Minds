@@ -25,6 +25,5 @@ namespace MovieMinds.Models.Entites
         ////Location/Country
         [StringLength(100)]
         public string? Location { get; set; }
-
     }
 }

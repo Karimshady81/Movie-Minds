@@ -1,15 +1,12 @@
-﻿@inject UserManager<User> UserManager
-@{
-    var currentUser = await UserManager.GetUserAsync(User);
-}
+﻿@model ProfilePageViewModel
 
 <div class="profile-container">
     <div class="profile-header">
         <div class="avatar">👤</div>
-        <h1 class="username">@currentUser?.DisplayName</h1>
+        <h1 class="username">@Model.CurrentUser?.DisplayName</h1>
         <div class="user-stats">
-            <span>📍 @(currentUser?.Location ?? " ")</span>
-            <span>✉️ @(currentUser?.Bio ?? " ")</span>
+            <span>📍 @(Model.CurrentUser?.Location ?? " ")</span>
+            <span>✉️ @(Model.CurrentUser?.Bio ?? " ")</span>
         </div>
     </div>
 
@@ -18,23 +15,33 @@
             <h2 class="section-title">Recent Likes</h2>
             <a href="#" class="view-all">ALL</a>
         </div>
-        <div>            
-            @if (currentUser?.UserMovie.Any(ul => ul.Liked) == true)
-            {
-                foreach(var likedMovie in currentUser.UserMovie.Where(ul => ul.Liked))
+        @if (Model.LikedMovies.Any())
+        {
+            <div class="action-display-container">
+                @foreach (var movie in Model.LikedMovies)
                 {
-                    <div class="full-state">
-                        <p>@likedMovie.Movie.Title</p>
+                    <div class="movie-card">
+                        <a class="movie-details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
+                            <div class="movie-poster">
+                                <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
+                                <div class="movie-overlay"></div>
+                                <div class="movie-rating">@movie.TmdbRating</div>
+                                <div class="movie-info">
+                                    <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
+                                </div>
+                            </div>
+                            <h3 class="movie-title serif">@movie.Title</h3>
+                        </a>
                     </div>
                 }
-            }
-            else
-            {
+            </div>
+        }
+        else
+        {
             <div class="empty-state">
                 No liked movies yet
             </div>
-            }
-        </div>
+        }
     </div>
 
     <div class="section">
@@ -42,9 +49,33 @@
             <h2 class="section-title">Watchlist</h2>
             <a href="#" class="view-all">ALL</a>
         </div>
-        <div class="empty-state">
-            No movies added to watchlist
-        </div>
+        @if (Model.InWatchList.Any())
+        {
+            <div class="action-display-container">
+                @foreach (var movie in Model.InWatchList)
+                {
+                    <div class="movie-card">
+                        <a class="movie-details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
+                            <div class="movie-poster">
+                                <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
+                                <div class="movie-overlay"></div>
+                                <div class="movie-rating">@movie.TmdbRating</div>
+                                <div class="movie-info">
+                                    <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
+                                </div>
+                            </div>
+                            <h3 class="movie-title serif">@movie.Title</h3>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                No movies in watch-list yet
+            </div>
+        }
     </div>
 
     <div class="section">
@@ -52,8 +83,32 @@
             <h2 class="section-title">Reviews</h2>
             <a href="#" class="view-all">ALL</a>
         </div>
-        <div class="empty-state">
-            No movies added to watchlist
-        </div>
+        @if (Model.Reviewed.Any())
+        {
+            <div class="action-display-container">
+                @foreach (var movie in Model.Reviewed)
+                {
+                    <div class="movie-card">
+                        <a class="movie-details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
+                            <div class="movie-poster">
+                                <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
+                                <div class="movie-overlay"></div>
+                                <div class="movie-rating">@movie.TmdbRating</div>
+                                <div class="movie-info">
+                                    <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
+                                </div>
+                            </div>
+                            <h3 class="movie-title serif">@movie.Title</h3>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                No reviewd movies yet
+            </div>
+        }
     </div>
 </div>

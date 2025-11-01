@@ -102,6 +102,16 @@
     border: 2px dashed rgba(100, 100, 120, 0.3);
 }
 
+.action-display-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.movie-details {
+    text-decoration: none;
+}
+
 @keyframes fadeInDown {
     from {
         opacity: 0;

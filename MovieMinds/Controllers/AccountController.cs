@@ -1,20 +1,25 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using MovieMinds.Data;
 using MovieMinds.Models.DTO;
 using MovieMinds.Models.Entites;
+using MovieMinds.ViewModels;
 
 namespace MovieMinds.Controllers
 {
     public class AccountController : Controller
     {
         private readonly UserManager<User> _userManager;
+        private readonly MovieMindsDbContext _context;
         private readonly SignInManager<User> _signInManager;
         private IConfiguration _configuration;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IConfiguration configuration)
+        public AccountController(UserManager<User> userManager, MovieMindsDbContext context, SignInManager<User> signInManager, IConfiguration configuration)
         {
             _userManager = userManager;
+            _context = context;
             _signInManager = signInManager;
             _configuration = configuration;
         }
@@ -41,14 +46,36 @@ namespace MovieMinds.Controllers
             return View(response);
         }
 
-        public IActionResult Profile()
+        public async Task<IActionResult> Profile()
         {
-            if(!User.Identity!.IsAuthenticated)
+            if (!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
 
-            var response = new User();
+            // Get current user
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if (currentUser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Load liked movies
+            var likedMovies = await _context.UserMovies
+                .Where(um => um.UserId == currentUser.Id && um.Liked)
+                .Include(um => um.Movie)
+                .Select(um => um.Movie)
+                .Take(4)
+                .ToListAsync();
+
+            // Create and populate the ViewModel
+            var response = new ProfilePageViewModel
+            {
+                CurrentUser = currentUser,
+                LikedMovies = likedMovies,
+            };
+
             return View(response);
         }
 

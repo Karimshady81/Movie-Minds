@@ -11,10 +11,10 @@ namespace MovieMinds.Models.Entites
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        [MaxLength(300)] public string Title { get; set; } = "";
+        public string Title { get; set; } = "";
         public string? ReleaseDate { get; set; }
-        [MaxLength(400)] public string? PosterPath { get; set; }
-        [MaxLength(400)] public string? BackdropPath { get; set; }
+        public string? PosterPath { get; set; }
+        public string? BackdropPath { get; set; }
 
         public double? TmdbRating { get; set; }
         public int? RunTime { get; set; }
