@@ -6,7 +6,7 @@
         <h1 class="username">@Model.CurrentUser?.DisplayName</h1>
         <div class="user-stats">
             <span>📍 @(Model.CurrentUser?.Location ?? " ")</span>
-            <span>✉️ @(Model.CurrentUser?.Bio ?? " ")</span>
+            <span>@(Model.CurrentUser?.Bio ?? " ")</span>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
                             <div class="movie-poster">
                                 <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
                                 <div class="movie-overlay"></div>
-                                <div class="movie-rating">@movie.TmdbRating</div>
+                                <div class="movie-rating">@movie.TmdbRating!.Value.ToString("0.0")</div>
                                 <div class="movie-info">
                                     <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
                                 </div>
@@ -46,6 +46,40 @@
 
     <div class="section">
         <div class="section-header">
+            <h2 class="section-title">Watched</h2>
+            <a href="#" class="view-all">ALL</a>
+        </div>
+        @if (Model.WatchedMovies.Any())
+        {
+            <div class="action-display-container">
+                @foreach (var movie in Model.WatchedMovies)
+                {
+                    <div class="movie-card">
+                        <a class="movie-details" asp-controller="MovieDetails" asp-action="Details" asp-route-id="@movie.Id">
+                            <div class="movie-poster">
+                                <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
+                                <div class="movie-overlay"></div>
+                                <div class="movie-rating">@(movie.TmdbRating!.Value.ToString("0.0") ?? "N/A")</div>
+                                <div class="movie-info">
+                                    <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
+                                </div>
+                            </div>
+                            <h3 class="movie-title serif">@movie.Title</h3>
+                        </a>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="empty-state">
+                No watched movies yet
+            </div>
+        }
+    </div>
+
+    <div class="section">
+        <div class="section-header">
             <h2 class="section-title">Watchlist</h2>
             <a href="#" class="view-all">ALL</a>
         </div>
@@ -59,7 +93,7 @@
                             <div class="movie-poster">
                                 <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
                                 <div class="movie-overlay"></div>
-                                <div class="movie-rating">@movie.TmdbRating</div>
+                                <div class="movie-rating">@(movie.TmdbRating!.Value.ToString("0.0") ?? "N/A")</div>
                                 <div class="movie-info">
                                     <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
                                 </div>
@@ -93,7 +127,7 @@
                             <div class="movie-poster">
                                 <img src="https://image.tmdb.org/t/p/original/@movie.PosterPath" alt="@movie.Title" />
                                 <div class="movie-overlay"></div>
-                                <div class="movie-rating">@movie.TmdbRating</div>
+                                <div class="movie-rating">@(movie.TmdbRating!.Value.ToString("0.0") ?? "N/A")</div>
                                 <div class="movie-info">
                                     <div class="movie-year">@(movie.ReleaseDate?.Substring(0, 4) ?? "N/A")</div>
                                 </div>

@@ -69,11 +69,27 @@ namespace MovieMinds.Controllers
                 .Take(4)
                 .ToListAsync();
 
+            var inWatchList = await _context.UserMovies
+                .Where(um => um.UserId == currentUser.Id && um.InWatchlist)
+                .Include(um => um.Movie)
+                .Select(um => um.Movie)
+                .Take(4)
+                .ToListAsync();
+
+            var watchedMovies = await _context.UserMovies
+                .Where(um => um.UserId == currentUser.Id && um.Watched)
+                .Include(um => um.Movie)
+                .Select(um => um.Movie)
+                .Take(4)
+                .ToListAsync();
+
             // Create and populate the ViewModel
             var response = new ProfilePageViewModel
             {
                 CurrentUser = currentUser,
                 LikedMovies = likedMovies,
+                InWatchList = inWatchList,
+                WatchedMovies = watchedMovies
             };
 
             return View(response);
