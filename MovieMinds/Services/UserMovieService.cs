@@ -7,13 +7,20 @@ using MovieMinds.Services.Interfaces;
 
 namespace MovieMinds.Services
 {
+    public enum UserMovieAction
+    {
+        Liked,
+        InWatchList,
+        Watched
+    }
+
     public class UserMovieService : IUserMovieService
     {
-        private readonly MovieMindsDbContext _context;
+        private readonly IDbContextFactory<MovieMindsDbContext> _contextFactory;
 
-        public UserMovieService(MovieMindsDbContext context)
+        public UserMovieService(IDbContextFactory<MovieMindsDbContext> contextFactory)
         {
-            _context = context;
+            _contextFactory = contextFactory;
         }
 
         // Helper method: Convert TmdbMovieDto → Movie Entity
@@ -34,54 +41,101 @@ namespace MovieMinds.Services
 
         public async Task<UserMovie?> GetUserMovieAsync(string userId, int movieId)
         {
-            return await _context.UserMovies
+            await using var context = await _contextFactory.CreateDbContextAsync();
+
+            return await context.UserMovies
                 .AsNoTracking()
                 .FirstOrDefaultAsync(um => um.UserId == userId && um.MovieId == movieId);
         }
 
-        public async Task<bool> ToggleLikeAsync(string userId, int movieId, TmdbMovieDto? movieDto = null)
+        public async Task<bool> ToggleUserMovieActionAsync(string userId, int movieId, UserMovieAction action, TmdbMovieDto? movieDto = null)
         {
-            // STEP A: Check if this movie exists in our database
-            var movieExists = await _context.Movies.AnyAsync(m => m.Id == movieId);
+            await using var context = await _contextFactory.CreateDbContextAsync();
 
-            if(!movieExists)
-            {
-                // Movie doesn't exist in our database!
-                if (movieDto == null)
-                {
-                    // We can't save it because we don't have the data
-                    throw new InvalidOperationException($"Movie with ID {movieId} must be saved to the database first.");
-                }
+            await EnsureMovieExistsAsync(context,movieId, movieDto);
 
-                // STEP B: Convert the DTO to an Entity and save it
-                var movie = MapDtoToEntity(movieDto);
-                _context.Movies.Add(movie);
-                await _context.SaveChangesAsync();
-            }
-
-            // STEP C: Now we can safely create/update UserMovie
-            var userMovie = await _context.UserMovies.FirstOrDefaultAsync(um => um.UserId == userId && um.MovieId == movieId);
+            var userMovie = await context.UserMovies.FirstOrDefaultAsync(um => um.UserId == userId && um.MovieId == movieId);
 
             if (userMovie == null)
             {
-                // User hasn't liked this movie before - create new record
-                userMovie = new UserMovie
-                {
-                    UserId = userId,
-                    MovieId = movieId,
-                    Liked = true
-                };
-                _context.UserMovies.Add(userMovie);
+                userMovie = CreateNewUserMovie(userId, movieId, action);
+                context.UserMovies.Add(userMovie);
             }
             else
             {
-                // User already has a record - toggle the like status
-                userMovie.Liked = !userMovie.Liked;
-                _context.UserMovies.Update(userMovie);
+                ToggleAction(userMovie, action);
+                context.UserMovies.Update(userMovie);
             }
 
-            await _context.SaveChangesAsync();
-            return userMovie.Liked;
+            await context.SaveChangesAsync();
+
+            return action switch
+            {
+                UserMovieAction.Liked => userMovie.Liked,
+                UserMovieAction.InWatchList => userMovie.InWatchlist,
+                UserMovieAction.Watched => userMovie.Watched,
+                _ => throw new ArgumentOutOfRangeException(nameof(action), "Invalid action")
+            };
+        }
+
+        private async Task EnsureMovieExistsAsync(MovieMindsDbContext context, int movieId, TmdbMovieDto? movieDto)
+        {
+            var movieExists = await context.Movies.AnyAsync(m => m.Id == movieId);
+
+            if (!movieExists)
+            {
+                if (movieDto == null)
+                {
+                    throw new ArgumentException("Movie data must be provided to add a new movie.");
+                }
+
+                var movieEntity = MapDtoToEntity(movieDto);
+                context.Movies.Add(movieEntity);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        private UserMovie CreateNewUserMovie(string userId, int movieId, UserMovieAction action)
+        {
+            var userMovie = new UserMovie
+            {
+                UserId = userId,
+                MovieId = movieId,
+                Liked = false,
+                InWatchlist = false,
+                Watched = false
+            };
+
+            switch (action)
+            {
+                case UserMovieAction.Liked:
+                    userMovie.Liked = true;
+                    break;
+                case UserMovieAction.InWatchList:
+                    userMovie.InWatchlist = true;
+                    break;
+                case UserMovieAction.Watched:
+                    userMovie.Watched = true;
+                    break;
+            }
+
+            return userMovie;
+        }
+
+        private void ToggleAction(UserMovie userMovie, UserMovieAction action)
+        {
+            switch (action)
+            {
+                case UserMovieAction.Liked:
+                    userMovie.Liked = !userMovie.Liked;
+                    break;
+                case UserMovieAction.InWatchList:
+                    userMovie.InWatchlist = !userMovie.InWatchlist;
+                    break;
+                case UserMovieAction.Watched:
+                    userMovie.Watched = !userMovie.Watched;
+                    break;
+            }
         }
     }
-}
+    }

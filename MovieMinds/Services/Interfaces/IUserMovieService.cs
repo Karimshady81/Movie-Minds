@@ -5,7 +5,7 @@ namespace MovieMinds.Services.Interfaces
 {
     public interface IUserMovieService
     {
-        Task<bool> ToggleLikeAsync(string userId, int movieId, TmdbMovieDto? movieData = null);
+        Task<bool> ToggleUserMovieActionAsync(string userId,int movieId, UserMovieAction action, TmdbMovieDto? movieDto = null);
         Task<UserMovie?> GetUserMovieAsync(string userId, int movieId);
     }
 }

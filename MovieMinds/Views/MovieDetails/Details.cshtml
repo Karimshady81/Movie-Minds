@@ -78,7 +78,8 @@ else
                             type = "typeof(WatchButton)" 
                             render-mode = "ServerPrerendered"
                             param-MovieId="@Model.Movie.Id"
-                        />
+                            param-MovieData="@Model.Movie"
+                            />
 
                         <component 
                             type="typeof(LikeButton)"
@@ -91,6 +92,7 @@ else
                             type="typeof(WatchListButton)"
                             render-mode="ServerPrerendered"
                             param-MovieId="@Model.Movie.Id"
+                            param-MovieData="@Model.Movie"
                         />
                     </div>
                 </div>

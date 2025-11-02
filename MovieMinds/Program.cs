@@ -31,7 +31,15 @@ builder.Services.AddSignalR(options =>
 });
 
 
-builder.Services.AddDbContext<MovieMindsDbContext>(options =>
+//// FOR CONTROLLERS & IDENTITY - Scoped per HTTP request
+//builder.Services.AddDbContext<MovieMindsDbContext>(options =>
+//{
+//    options.UseSqlServer(
+//        builder.Configuration["ConnectionStrings:MovieMindsDbContextConnection"]);
+//});
+
+// FOR SERVICES - Factory for concurrent operations
+builder.Services.AddDbContextFactory<MovieMindsDbContext>(options =>
 {
     options.UseSqlServer(
         builder.Configuration["ConnectionStrings:MovieMindsDbContextConnection"]);

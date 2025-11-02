@@ -1,20 +1,54 @@
 ﻿using Microsoft.AspNetCore.Components;
+using MovieMinds.Models.DTO;
+using MovieMinds.Services;
+using MovieMinds.Services.Interfaces;
+using System.Security.Claims;
 
 namespace MovieMinds.Components;
 
 public partial class WatchButton : ComponentBase
 {
+    [Inject]
+    public IUserMovieService UserMovieService { get; set; } = default!;
+    [Inject]
+    public IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
+
     [Parameter] public int MovieId { get; set; }
-    [Parameter] public bool Initial { get; set; }   // from MVC model
+    [Parameter] public TmdbMovieDto? MovieData { get; set; }
     
     private bool isWatched;
 
-    protected override void OnInitialized() => isWatched = Initial;
-
-    private void Toggle()
+    protected override async Task OnInitializedAsync()
     {
-        isWatched = !isWatched;
-        // TODO: call API later
-        StateHasChanged();
+        // When component loads, check if user already liked this movie
+        var userId = HttpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (!string.IsNullOrEmpty(userId))
+        {
+            var userMovie = await UserMovieService.GetUserMovieAsync(userId, MovieId);
+            isWatched = userMovie?.Watched ?? false;
+        }
+    }
+
+    private async Task Toggle()
+    {
+        var userId = HttpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (string.IsNullOrEmpty(userId))
+        {
+            // Handle unauthenticated user case (e.g., show a message or redirect to login)
+            return;
+        }
+
+        try
+        {
+            // Pass the MovieData so service can save it if needed
+            isWatched = await UserMovieService.ToggleUserMovieActionAsync(userId, MovieId, UserMovieAction.Watched, MovieData);
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error toggling watch: {ex.Message}");
+        }
     }
 }

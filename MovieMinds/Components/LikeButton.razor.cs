@@ -2,6 +2,7 @@
 using MovieMinds.Data;
 using MovieMinds.Models.DTO;
 using MovieMinds.Models.Entites;
+using MovieMinds.Services;
 using MovieMinds.Services.Interfaces;
 using System.Security.Claims;
 
@@ -44,7 +45,7 @@ public partial class LikeButton : ComponentBase
         try
         {
             // Pass the MovieData so service can save it if needed
-            isLiked = await UserMovieService.ToggleLikeAsync(userId, MovieId, MovieData);
+            isLiked = await UserMovieService.ToggleUserMovieActionAsync(userId, MovieId, UserMovieAction.Liked, MovieData);
             StateHasChanged();
         }
         catch(Exception ex)
