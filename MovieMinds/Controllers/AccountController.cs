@@ -141,14 +141,19 @@ namespace MovieMinds.Controllers
             {
                 ModelState.AddModelError(nameof(RegisterDto.Email), "User with this email or username already exists.");
                 return View(model);
+            } 
+            else if(user?.UserName == model.UserName)
+            {
+                ModelState.AddModelError(nameof(RegisterDto.UserName), "User with this email or username already exists.");
+                return View(model);
             }
 
-            var newUser = new User
-            {
-                UserName = model.UserName,
-                Email = model.Email,
-                DisplayName = model.DisplayName
-            };
+                var newUser = new User
+                {
+                    UserName = model.UserName,
+                    Email = model.Email,
+                    DisplayName = model.DisplayName
+                };
 
             var result = await _userManager.CreateAsync(newUser, model.Password);
 
