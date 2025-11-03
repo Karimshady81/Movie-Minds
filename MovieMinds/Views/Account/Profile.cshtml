@@ -13,7 +13,7 @@
     <div class="section">
         <div class="section-header">
             <h2 class="section-title">Recent Likes</h2>
-            <a href="#" class="view-all">ALL</a>
+            <a asp-controller="Account" asp-action="AllMoviesAction" asp-route-type="liked" class="view-all">ALL</a>
         </div>
         @if (Model.LikedMovies.Any())
         {
@@ -47,7 +47,7 @@
     <div class="section">
         <div class="section-header">
             <h2 class="section-title">Watched</h2>
-            <a href="#" class="view-all">ALL</a>
+            <a asp-controller="Account" asp-action="AllMoviesAction" asp-route-type="watched" class="view-all">ALL</a>
         </div>
         @if (Model.WatchedMovies.Any())
         {
@@ -81,7 +81,7 @@
     <div class="section">
         <div class="section-header">
             <h2 class="section-title">Watchlist</h2>
-            <a href="#" class="view-all">ALL</a>
+            <a asp-controller="Account" asp-action="AllMoviesAction" asp-route-type="watchlist" class="view-all">ALL</a>
         </div>
         @if (Model.InWatchList.Any())
         {
@@ -115,7 +115,7 @@
     <div class="section">
         <div class="section-header">
             <h2 class="section-title">Reviews</h2>
-            <a href="#" class="view-all">ALL</a>
+            <a asp-controller="Account" asp-action="AllMoviesAction" asp-route-type="reviewed" class="view-all">ALL</a>
         </div>
         @if (Model.Reviewed.Any())
         {

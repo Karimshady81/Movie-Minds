@@ -95,6 +95,63 @@ namespace MovieMinds.Controllers
             return View(response);
         }
 
+        public async Task<IActionResult> AllMoviesAction(string type)
+        {
+            var currentUser = await _userManager.GetUserAsync(User);
+
+            if(currentUser == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var userMovies = _context.UserMovies
+                    .Where(um => um.UserId == currentUser.Id)
+                    .Include(um => um.Movie);
+
+            var viewModel = new AllMoviesActionViewModel
+            {
+                CurrentUser = currentUser
+            };
+
+            switch (type?.ToLower())
+            {
+                case "liked":
+                    viewModel.LikedMovies = await _context.UserMovies
+                        .Where(um => um.UserId == currentUser.Id && um.Liked)
+                        .Include(um => um.Movie)
+                        .Select(um => um.Movie)
+                        .ToListAsync();
+                    return View("AllLiked", viewModel);
+                   
+                case "watchlist":
+                    viewModel.InWatchList = await _context.UserMovies
+                        .Where(um => um.UserId == currentUser.Id && um.InWatchlist)
+                        .Include(um => um.Movie)
+                        .Select(um => um.Movie)
+                        .ToListAsync();
+                    return View("AllWatchList", viewModel);
+
+                case "watched":
+                    viewModel.WatchedMovies = await _context.UserMovies
+                        .Where(um => um.UserId == currentUser.Id && um.Watched)
+                        .Include(um => um.Movie)
+                        .Select(um => um.Movie)
+                        .ToListAsync();
+                    return View("AllWatched", viewModel);
+
+                case "reviewed":
+                    viewModel.Reviewed = await _context.UserMovies
+                         .Where(um => um.UserId == currentUser.Id && um.Rating5 >= 1)
+                         .Include(um => um.Movie)
+                         .Select(um => um.Movie)
+                         .ToListAsync();
+                    return View("AllReviewed", viewModel);
+
+                default:
+                    return RedirectToAction("Profile", "Account");
+            }
+        }
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto model)
         {
