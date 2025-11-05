@@ -26,7 +26,7 @@ namespace MovieMinds.Controllers
 
         public IActionResult Login()
         {
-            if (!User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -37,7 +37,7 @@ namespace MovieMinds.Controllers
 
         public IActionResult Register()
         {
-            if (!User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -176,7 +176,7 @@ namespace MovieMinds.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto model)
         {
-            if (!User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -218,7 +218,7 @@ namespace MovieMinds.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto model)
         {
-            if (!User.Identity!.IsAuthenticated)
+            if (User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -280,10 +280,20 @@ namespace MovieMinds.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            user.DisplayName = model.DisplayName;
-            user.Bio = model.Bio;
-            user.Location = model.Location;
-            user.ProfilePictureUrl = model.ProfilePictureUrl;
+            if(!string.IsNullOrEmpty(model.DisplayName))
+            {
+                user.DisplayName = model.DisplayName;
+            }
+
+            if(!string.IsNullOrEmpty(model.Bio))
+            {
+                user.Bio = model.Bio;
+            }
+
+            if (!string.IsNullOrEmpty(model.Location))
+            {
+                user.Location = model.Location;
+            }
 
             var result = await _userManager.UpdateAsync(user);
             if (result.Succeeded)

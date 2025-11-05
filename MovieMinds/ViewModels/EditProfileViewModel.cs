@@ -6,7 +6,7 @@ namespace MovieMinds.ViewModels
     public class EditProfileViewModel
     {
         [StringLength(50)]
-        public string DisplayName { get; set; } = "";
+        public string? DisplayName { get; set; }
 
         [StringLength(500)]
         public string? Bio { get; set; }

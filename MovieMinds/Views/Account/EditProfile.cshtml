@@ -9,7 +9,7 @@
                     <p class="edit-profile-subtitle">Update your personal information</p>
                 </div>
 
-                <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                <form asp-action="EditProfile" method="post">
                     <div class="edit-profile-form-group">
                         <label asp-for="DisplayName" class="edit-profile-label">Display Name</label>
                         <span asp-validation-for="DisplayName" class="error-Message"></span>

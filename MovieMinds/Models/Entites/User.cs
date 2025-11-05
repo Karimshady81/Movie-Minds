@@ -6,6 +6,7 @@ namespace MovieMinds.Models.Entites
     public class User : IdentityUser
     {
         //Essential Properties
+        [StringLength(50)]
         public string? DisplayName { get; set; }
 
         public ICollection<UserMovie> UserMovie { get; set; } = new List<UserMovie>();
