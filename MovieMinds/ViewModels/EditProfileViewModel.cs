@@ -14,7 +14,6 @@ namespace MovieMinds.ViewModels
         [StringLength(100)]
         public string? Location { get; set; }
 
-        [Url]
         public string? ProfilePictureUrl { get; set; }
     }
 }

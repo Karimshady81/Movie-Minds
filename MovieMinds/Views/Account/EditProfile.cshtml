@@ -1,28 +1,42 @@
 ﻿@model EditProfileViewModel
 
-<div>
-    <h1>Edit profile</h1>
-    <form asp-action="EditProfile" method="post">
-        <div>
-            <label asp-for="DisplayName">Display Name</label>
-            <input type="text" name="DisplayName" placeholder="Choose a display name">
-        </div>
+<div class="edit-profile-form-container">
+    <div class="edit-profile-form-width">
+        <div class="edit-profile-wrapper">
+            <div class="edit-profile-container">
+                <div class="edit-profile-header">
+                    <h1 class="edit-profile-title">Edit Profile</h1>
+                    <p class="edit-profile-subtitle">Update your personal information</p>
+                </div>
 
-        <div>
-            <label asp-for="Bio">Bio</label>
-            <input type="text" name="Bio" placeholder="Choose a bio">
-        </div>
+                <form asp-action="EditProfile" method="post" enctype="multipart/form-data">
+                    <div class="edit-profile-form-group">
+                        <label asp-for="DisplayName" class="edit-profile-label">Display Name</label>
+                        <span asp-validation-for="DisplayName" class="error-Message"></span>
+                        <input type="text" name="DisplayName" class="edit-profile-input" placeholder="Choose a display name">
+                    </div>
 
-        <div>
-            <label asp-for="Location">Location</label>
-            <input type="text" name="Location" placeholder="Choose a Location">
-        </div>
+                    <div class="edit-profile-form-group">
+                        <label asp-for="Bio" class="edit-profile-label">Bio</label>
+                        <span asp-validation-for="Bio" class="error-Message"></span>
+                        <input type="text" name="Bio" class="edit-profile-input" placeholder="Tell us about yourself">
+                    </div>
 
-        <div>
-            <label asp-for="ProfilePictureUrl">Profile picture</label>
-            <input type="image" name="ProfilePicture" placeholder="Change profile picture">
-        </div>
+                    <div class="edit-profile-form-group">
+                        <label asp-for="Location" class="edit-profile-label">Location</label>
+                        <span asp-validation-for="Location" class="error-Message"></span>
+                        <input type="text" name="Location" class="edit-profile-input" placeholder="Where are you located?">
+                    </div>
 
-        <button type="submit" class="submit-Btn">Save Changes</button>
-    </form>
+                    <div class="edit-profile-form-group">
+                        <label asp-for="ProfilePictureUrl" class="edit-profile-label">Choose Profile Picture</label>
+                        <span asp-validation-for="ProfilePictureUrl" class="error-Message"></span>
+                        <input type="file" accept=".png, .jpg, .jpeg" name="ProfilePictureUrl" class="edit-profile-input">
+                    </div>
+
+                    <button type="submit" class="edit-profile-submit-btn">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
