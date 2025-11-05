@@ -12,11 +12,6 @@ namespace MovieMinds.Models.Entites
         // ↑ This is a navigation property - it creates a relationship in the database
         // It means "a user can have many UserMovie records"
 
-
-        //These are additional properties
-        //public string FirstName { get; set; } = string.Empty;
-        //public string LastName { get; set; } = string.Empty;
-
         [StringLength(500)]
         public string? Bio { get; set; }
         public string? ProfilePictureUrl { get; set; }

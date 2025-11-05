@@ -1,0 +1,28 @@
+﻿@model EditProfileViewModel
+
+<div>
+    <h1>Edit profile</h1>
+    <form asp-action="EditProfile" method="post">
+        <div>
+            <label asp-for="DisplayName">Display Name</label>
+            <input type="text" name="DisplayName" placeholder="Choose a display name">
+        </div>
+
+        <div>
+            <label asp-for="Bio">Bio</label>
+            <input type="text" name="Bio" placeholder="Choose a bio">
+        </div>
+
+        <div>
+            <label asp-for="Location">Location</label>
+            <input type="text" name="Location" placeholder="Choose a Location">
+        </div>
+
+        <div>
+            <label asp-for="ProfilePictureUrl">Profile picture</label>
+            <input type="image" name="ProfilePicture" placeholder="Change profile picture">
+        </div>
+
+        <button type="submit" class="submit-Btn">Save Changes</button>
+    </form>
+</div>

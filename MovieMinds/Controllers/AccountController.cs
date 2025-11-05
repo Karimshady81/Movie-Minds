@@ -26,7 +26,7 @@ namespace MovieMinds.Controllers
 
         public IActionResult Login()
         {
-            if (User.Identity!.IsAuthenticated)
+            if (!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -37,7 +37,7 @@ namespace MovieMinds.Controllers
 
         public IActionResult Register()
         {
-            if (User.Identity!.IsAuthenticated)
+            if (!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -94,6 +94,27 @@ namespace MovieMinds.Controllers
 
             return View(response);
         }
+
+        public async Task<IActionResult> EditProfile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var response = new EditProfileViewModel
+            {
+                DisplayName = user.DisplayName ?? "",
+                Bio = user.Bio,
+                Location = user.Location,
+                ProfilePictureUrl = user.ProfilePictureUrl
+            };
+
+            return View(response);
+        }
+
 
         public async Task<IActionResult> AllMoviesAction(string type)
         {
@@ -155,7 +176,7 @@ namespace MovieMinds.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto model)
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -197,7 +218,7 @@ namespace MovieMinds.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDto model)
         {
-            if (User.Identity!.IsAuthenticated)
+            if (!User.Identity!.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
             }
@@ -243,6 +264,32 @@ namespace MovieMinds.Controllers
                 }
                 return View(model);
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            user.DisplayName = model.DisplayName;
+            user.Bio = model.Bio;
+            user.Location = model.Location;
+            user.ProfilePictureUrl = model.ProfilePictureUrl;
+
+            var result = await _userManager.UpdateAsync(user);
+            if (result.Succeeded)
+                return RedirectToAction("Profile", "Account");
+
+            return View(model);
         }
 
         public async Task<IActionResult> Logout()
