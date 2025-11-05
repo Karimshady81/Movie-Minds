@@ -1,5 +1,9 @@
 ﻿@model MovieDetailsViewModel 
 
+@{
+    ViewData["UseBlazor"] = true;
+}
+
 @* back-drop section *@
 @if(Model.Movie.BackdropPath is null)
 {

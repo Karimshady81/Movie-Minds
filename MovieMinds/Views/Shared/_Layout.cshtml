@@ -69,7 +69,10 @@
         @RenderSection("Scripts", required: false)
     </div>
 
-    <script src="~/_framework/blazor.server.js"></script>
+    @if (ViewData["UseBlazor"] as bool? == true)
+    {
+        <script src="_framework/blazor.server.js"></script>
+    }
 </body>
 <footer>
     <div class="footer-container"></div>

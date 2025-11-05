@@ -26,7 +26,7 @@ builder.Services.AddServerSideBlazor(options =>
 
 builder.Services.AddSignalR(options =>
 {
-    options.MaximumReceiveMessageSize = 102400000; // 100 MB (increased from default 32KB)
+    options.MaximumReceiveMessageSize = 100 * 1024 * 1024; // 100 MB (increased from default 32KB)
     options.EnableDetailedErrors = true;
 });
 
