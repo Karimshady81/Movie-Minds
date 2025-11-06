@@ -2,7 +2,16 @@
 
 <div class="profile-container">
     <div class="profile-header">
-        <div class="avatar">👤</div>
+        <div class="avatar">
+            @if(Model.CurrentUser.ProfilePictureUrl?.Length > 0)
+            {
+                <img src="@Model.CurrentUser.ProfilePictureUrl" class="avatar-size" alt="@Model.CurrentUser.DisplayName avatar"/>
+            }
+            else
+            {
+                <div>👤</div>
+            }
+        </div>
         <h1 class="username">@Model.CurrentUser?.DisplayName</h1>
         <div class="user-stats">
             <span>📍 @(Model.CurrentUser?.Location ?? " ")</span>

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -29,7 +30,6 @@ builder.Services.AddSignalR(options =>
     options.MaximumReceiveMessageSize = 100 * 1024 * 1024; // 100 MB (increased from default 32KB)
     options.EnableDetailedErrors = true;
 });
-
 
 //// FOR CONTROLLERS & IDENTITY - Scoped per HTTP request
 //builder.Services.AddDbContext<MovieMindsDbContext>(options =>

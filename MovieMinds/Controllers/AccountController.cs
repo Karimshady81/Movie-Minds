@@ -109,7 +109,6 @@ namespace MovieMinds.Controllers
                 DisplayName = user.DisplayName ?? "",
                 Bio = user.Bio,
                 Location = user.Location,
-                ProfilePictureUrl = user.ProfilePictureUrl
             };
 
             return View(response);
@@ -267,7 +266,7 @@ namespace MovieMinds.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditProfile(EditProfileViewModel model)
+        public async Task<IActionResult> EditProfile(EditProfileViewModel model, IFormFile? ProfilePictureUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -278,6 +277,32 @@ namespace MovieMinds.Controllers
             if (user == null)
             {
                 return RedirectToAction("Index", "Home");
+            }
+
+            //Handle file upload
+            if(ProfilePictureUrl != null && ProfilePictureUrl.Length > 0)
+            {
+                var allowedExtension = new[] { ".jpg", ".jpeg", ".png"};
+                var extension = Path.GetExtension(ProfilePictureUrl.FileName).ToLowerInvariant();
+
+                if (!allowedExtension.Contains(extension))
+                {
+                    ModelState.AddModelError("ProfilePictureUrl", "Invalid file type. Only JPG, JPEG and PNG are allowed.");
+                    return View(model);
+                }
+
+                var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "profile_pictures");
+                Directory.CreateDirectory(uploadsFolder); // Ensure the directory exists
+
+                var uniqueFileName = $"{user.Id}_{Guid.NewGuid()}{extension}";
+                var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    await ProfilePictureUrl.CopyToAsync(fileStream);
+                }
+
+                user.ProfilePictureUrl = $"/uploads/profile_pictures/{uniqueFileName}";
             }
 
             if(!string.IsNullOrEmpty(model.DisplayName))

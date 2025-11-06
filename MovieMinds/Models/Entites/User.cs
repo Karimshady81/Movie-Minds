@@ -15,6 +15,8 @@ namespace MovieMinds.Models.Entites
 
         [StringLength(500)]
         public string? Bio { get; set; }
+        
+        [StringLength(1000)]
         public string? ProfilePictureUrl { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
