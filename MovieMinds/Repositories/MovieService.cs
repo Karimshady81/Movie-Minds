@@ -56,5 +56,10 @@ namespace MovieMinds.Repositories
         {
             return _tmdb.GetCountriesName();
         }
+
+        public Task<MovieTrailerDto?> GetMovieTrailerAsync(int id)
+        {
+            return _tmdb.GetMovieTrailer(id);
+        }
     }
 }

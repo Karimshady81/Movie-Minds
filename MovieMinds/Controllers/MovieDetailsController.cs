@@ -28,10 +28,12 @@ namespace MovieMinds.Controllers
                 var releaseDates = await _movies.GetMovieReleaseDatesAsync(id);
                 var countryName = await _movies.GetCountryNamesAsync();
                 var recommendations = await _movies.GetMovieRecommendationsAsync(id);
+                var movieTrailer = await _movies.GetMovieTrailerAsync(id);
 
                 var viewModel = new MovieDetailsViewModel
                 {
                     Movie = movie,
+                    Trailer = movieTrailer,
                     Crew = crew,
                     Cast = cast,
                     ReleaseDates = releaseDates,

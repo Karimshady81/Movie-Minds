@@ -29,22 +29,33 @@ else
                 @* social implementaion will do later *@
                 <div class="social-movie-stats">
                     <div class="stat">
-                        <span>👁</span>
-                        <span></span>
-                    </div>
-                    <div class="stat">
                         <span>❤️</span>
-                        <span></span>
+                        <span>@Model.Movie.VoteAverage!.Value.ToString("0.0")</span>
                     </div>
                     <div class="stat">
-                        <span>⭐</span>
-                        <span></span>
+                        <span>👁️</span>
+                        <span>@Model.Movie.VoteCount!.Value.ToString("0")</span>
+                    </div>
+                    <div class="stat">
+                        @if(Model.Movie.popularity > 150)
+                        {
+                            <span>📈</span>
+                            <span>@Model.Movie.popularity.Value.ToString("0")</span>
+                        }
+                        else
+                        {
+                            <span>📉</span>
+                            <span>@Model.Movie.popularity!.Value.ToString("0")</span>
+                        }
                     </div>
                 </div>
             </div>
 
             <div class="watch-section">
-                <button class="watch-btn">▶ Trailer</button>
+                @if (Model.Trailer!.Results.Any())
+                {
+                    <a class="watch-btn" href="https://www.youtube.com/watch?v=@Model.Trailer.Results?.FirstOrDefault(n => n.name == "Official Trailer")!.key" target="_blank">▶ Trailer</a>
+                }
             </div>
         </aside>
 
@@ -101,7 +112,7 @@ else
                     </div>
                 </div>
 
-                <div class="ratings-section">
+                @* <div class="ratings-section">
                     <div class="user-rating-section">
                         <div class="section-title">Ratings</div>
                         <div class="star-rating">
@@ -115,7 +126,7 @@ else
                     <div class="average-rating-section">
                         <div class="rating-display">
                             <div class="rating-score">
-                                @* will do later will be the rating of the users in the app *@
+
                                 <span class="score-value">0</span>
                                 <span class="score-divider">/</span>
                                 <span class="score-max">5</span>
@@ -141,7 +152,7 @@ else
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> *@
             }
             else
             {

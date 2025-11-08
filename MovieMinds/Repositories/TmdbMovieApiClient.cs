@@ -86,5 +86,13 @@ namespace MovieMinds.Repositories
 
             return await response.Content.ReadFromJsonAsync<List<CountryNamesDto>>();
         }
+
+        public async Task<MovieTrailerDto?> GetMovieTrailer(int id)
+        {
+            var response = await _httpClient.GetAsync($"movie/{id}/videos");
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<MovieTrailerDto>();
+        }
     }
 }

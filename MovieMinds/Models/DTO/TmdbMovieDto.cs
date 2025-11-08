@@ -11,6 +11,8 @@ namespace MovieMinds.Models.DTO
         [JsonPropertyName("poster_path")] public string? PosterPath { get; set; }
         [JsonPropertyName("backdrop_path")] public string? BackdropPath { get; set; }
         [JsonPropertyName("vote_average")] public double? VoteAverage { get; set; }
+        [JsonPropertyName("vote_count")] public double? VoteCount { get; set; }
+        [JsonPropertyName("popularity")] public double? popularity { get; set; } 
         [JsonPropertyName("runtime")] public int? RunTime { get; set; }
         [JsonPropertyName("status")] public string? Status { get; set; }
         [JsonPropertyName("tagline")] public string? TagLine { get; set; }
