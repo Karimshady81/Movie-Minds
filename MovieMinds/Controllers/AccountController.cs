@@ -28,7 +28,7 @@ namespace MovieMinds.Controllers
         {
             if (User.Identity!.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
             }
 
             var response = new LoginDto();
@@ -39,7 +39,7 @@ namespace MovieMinds.Controllers
         {
             if (User.Identity!.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
             }
 
             var response = new RegisterDto();

@@ -120,6 +120,8 @@ builder.Services.AddHttpClient<IMovieApiClient, TmdbMovieApiClient>(client =>
 
 var app = builder.Build();
 
+app.UseStatusCodePagesWithReExecute("/Status404.html");
+
 app.UseStaticFiles();
 app.UseRouting();
 
