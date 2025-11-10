@@ -14,5 +14,6 @@ namespace MovieMinds.Repositories.Interfaces
         Task<IReadOnlyList<CastMemberDto>> GetMovieCastAsync(int id);
         Task<IReadOnlyList<CrewMemberDto>> GetMovieCrewAsync(int id);
         Task<MovieTrailerDto?> GetMovieTrailer(int id);
+        Task<WatchProviderResponseDto?> GetMovieProviders(int id);
     }
 }

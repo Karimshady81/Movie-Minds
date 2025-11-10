@@ -54,7 +54,65 @@ else
             <div class="watch-section">
                 @if (Model.Trailer!.Results.Any())
                 {
-                    <a class="watch-btn" href="https://www.youtube.com/watch?v=@Model.Trailer.Results?.FirstOrDefault(n => n.name == "Official Trailer")!.key" target="_blank">▶ Trailer</a>
+                    <a class="watch-btn" href="https://www.youtube.com/watch?v=@Model.Trailer.Results?.FirstOrDefault(n => n.name.Contains("Official Trailer"))!.key" target="_blank">▶ Trailer</a>
+                }
+                else
+                {
+                    <p style="text-align: center; color: #678;">No trailer available</p>
+                }
+            </div>
+            <div class="watch-section">
+                @if (Model.MovieProvider!.Results.Any())
+                {
+                    <h3 class="providers-title">Where to Watch</h3>
+
+                    @if (Model.MovieProvider.Results["US"].Rent != null && Model.MovieProvider.Results["US"].Rent.Any())
+                    {
+                        @foreach (var provider in Model.MovieProvider.Results["US"].Rent)
+                        {
+                            <a class="provider-link">
+                                <img src="https://image.tmdb.org/t/p/original/@provider.ProviderLogo"
+                                     alt="@provider.ProviderName"
+                                     class="provider-icon" />
+                                <span class="provider-name-inline">@provider.ProviderName</span>
+                                <span class="provider-badge">RENT</span>
+                            </a>
+                        }
+                    }
+
+                    @if (Model.MovieProvider.Results["US"].Buy != null && Model.MovieProvider.Results["US"].Buy.Any())
+                    {
+                        @foreach (var provider in Model.MovieProvider.Results["US"].Buy)
+                        {
+                            <a class="provider-link">
+                                <img src="https://image.tmdb.org/t/p/original/@provider.ProviderLogo"
+                                     alt="@provider.ProviderName"
+                                     class="provider-icon" />
+                                <span class="provider-name-inline">@provider.ProviderName</span>
+                                <span class="provider-badge">BUY</span>
+                            </a>
+                        }
+                    }
+
+                    @if (Model.MovieProvider.Results["US"].Flatrate != null && Model.MovieProvider.Results["US"].Flatrate.Any())
+                    {
+                        @foreach (var provider in Model.MovieProvider.Results["US"].Flatrate)
+                        {
+                            <a class="provider-link">
+                                <img src="https://image.tmdb.org/t/p/original/@provider.ProviderLogo"
+                                     alt="@provider.ProviderName"
+                                     class="provider-icon" />
+                                <span class="provider-name-inline">@provider.ProviderName</span>
+                                <span class="provider-badge">Stream</span>
+                            </a>
+                        }
+                    }
+
+                    <a href="https://www.justwatch.com/" class="justwatch-link">▶ JustWatch</a>
+                }
+                else
+                {
+                    <p style="text-align: center; color: #678;">No watch providers available</p>
                 }
             </div>
         </aside>

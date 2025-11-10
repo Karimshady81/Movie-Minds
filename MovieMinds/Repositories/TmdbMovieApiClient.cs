@@ -94,5 +94,13 @@ namespace MovieMinds.Repositories
 
             return await response.Content.ReadFromJsonAsync<MovieTrailerDto>();
         }
+
+        public async Task<WatchProviderResponseDto?> GetMovieProviders(int id)
+        {
+            var response = await _httpClient.GetAsync($"movie/{id}/watch/providers");
+            response.EnsureSuccessStatusCode();
+
+            return await response.Content.ReadFromJsonAsync<WatchProviderResponseDto>();
+        }
     }
 }

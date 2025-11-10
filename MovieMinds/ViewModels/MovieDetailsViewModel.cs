@@ -6,6 +6,7 @@ namespace MovieMinds.ViewModels
     {
         public TmdbMovieDto Movie { get; set; } = default!;
         public MovieTrailerDto? Trailer { get; set; }
+        public WatchProviderResponseDto? MovieProvider { get; set; }
         public IReadOnlyList<TmdbMovieDto> MovieRecommendations { get; set; } = Array.Empty<TmdbMovieDto>();
         public MovieReleaseDatesDto? ReleaseDates { get; set; }
         public List<CountryNamesDto>? CountryName { get; set; }

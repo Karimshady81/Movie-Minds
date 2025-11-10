@@ -61,5 +61,10 @@ namespace MovieMinds.Repositories
         {
             return _tmdb.GetMovieTrailer(id);
         }
+
+        public Task<WatchProviderResponseDto?> GetMovieWatchProvidersAsync(int id)
+        {
+            return _tmdb.GetMovieProviders(id);
+        }
     }
 }
