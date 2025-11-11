@@ -23,16 +23,16 @@ Users can:
 ## 📸 Screenshots  
 
 ### 🔐 Authentication & Profile  
-![Login Page](images/login-page.png)  
-![Profile Page](images/profile-page.png)
+![Login Page](MovieMinds/wwwroot/Images/login-page.png)  
+![Profile Page](MovieMinds/wwwroot/Images/profile-page.png)
 
 ### 🎥 Discover & Movie Details  
-![Discover Page](images/discover-page.png)  
-![Movie Details Page](images/movie-details-page.png)
+![Discover Page](MovieMinds/wwwroot/Images/discover-page.png)  
+![Movie Details Page](MovieMinds/wwwroot/Images/movie-details-page.png)
 
 ### 🎬 Watchlist & Liked Movies  
-![Watchlist Page](images/watchlist-page.png)  
-![Liked Movies Page](images/liked-movies.png)
+![Watchlist Page](MovieMinds/wwwroot/Images/watchlist-page.png)  
+![Liked Movies Page](MovieMinds/wwwroot/Images/liked-movies.png)
 
 ---
 
