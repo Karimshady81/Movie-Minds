@@ -23,7 +23,7 @@ Users can:
 ## 📸 Screenshots  
 
 ### 🔐 Authentication & Profile  
-![Login Page](MovieMinds/wwwroot/Images/login-page.png)  
+![Login Page](MovieMinds/wwwroot/Images/login-page%20.png)  
 ![Profile Page](MovieMinds/wwwroot/Images/profile-page.png)
 
 ### 🎥 Discover & Movie Details  
